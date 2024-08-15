@@ -80,7 +80,7 @@ export function Navbar() {
     </NavigationMenu>
       {/* {user? <Button className="ml-auto " variant={"outline"}>{user.username}</Button> : ""} */}
       {/* { !user    && */}
-        <Button className="ml-auto"><Link to="/login">Login</Link></Button>
+        {/* <Button className="ml-auto"><Link to="/login">Login</Link></Button> */}
       {/* } */}
 
     </div>

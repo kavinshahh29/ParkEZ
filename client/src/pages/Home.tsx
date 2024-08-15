@@ -1,4 +1,5 @@
 import Hero from '../components/Hero'
+import { WobbleCards } from '../components/WobbleCards'
 
 export default function Home() {
   return (
@@ -7,6 +8,9 @@ export default function Home() {
 
 
         <Hero/>
+
+
+        <WobbleCards/>
     </div>
   )
 }
