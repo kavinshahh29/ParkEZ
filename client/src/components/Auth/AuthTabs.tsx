@@ -11,7 +11,7 @@ export function AuthTabs( {googleLogin } : any) {
     {
       title: "Sign Up",
       value: "signup",
-      content: <SignUpForm />,
+      content: <SignUpForm googleLogin={googleLogin}/>,
     },
     {
       title: "Log In",
