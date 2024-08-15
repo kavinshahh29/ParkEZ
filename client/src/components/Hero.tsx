@@ -8,13 +8,7 @@ import { Link } from "react-router-dom";
 
 
 export default function Hero() {
-  const placeholders = [
-    "What's the first rule of Fight Club?",
-    "Who is Tyler Durden?",
-    "Where is Andrew Laeddis Hiding?",
-    "Write a Javascript method to reverse a string",
-    "How to assemble your own PC?",
-  ];
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
@@ -23,6 +17,8 @@ export default function Hero() {
     e.preventDefault();
     console.log("submitted");
   };
+
+  
   return (
     <div className="h-full flex flex-col justify-center  items-center px-4">
       <div className="h-[20rem] w-screen dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
@@ -38,7 +34,7 @@ export default function Hero() {
 
 
         <PlaceholdersAndVanishInput
-          placeholders={placeholders}
+          
           onChange={handleChange}
           onSubmit={onSubmit}
         />
