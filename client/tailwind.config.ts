@@ -26,6 +26,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily:{
+        'primary': ['primary', 'sans-serif'],
+      },
       animation: {
         grid: "grid 15s linear infinite",
         pulse: "pulse var(--duration) ease-out infinite",

@@ -2,11 +2,13 @@ import { GoogleAuthProvider , signInWithPopup } from "firebase/auth";
 import  {auth}  from "../firebase/config";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 
 export const useLogin = () => {
     
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const provider = new GoogleAuthProvider();
     const [error , setError] = useState("");
@@ -41,6 +43,8 @@ export const useLogin = () => {
                 type:"SET_USER",
                 payload: userData
             })
+            navigate('/');
+            
 
         }catch(err : any){
             setError(err.message);
