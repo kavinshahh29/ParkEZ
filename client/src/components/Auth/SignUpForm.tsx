@@ -4,9 +4,9 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "../../lib/utils";
 import {
-  IconBrandGithub,
+//   IconBrandGithub,
   IconBrandGoogle,
-  IconBrandOnlyfans,
+//   IconBrandOnlyfans,
 } from "@tabler/icons-react";
 
 export function SignUpForm() {
