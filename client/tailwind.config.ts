@@ -33,6 +33,7 @@ module.exports = {
         grid: "grid 15s linear infinite",
         pulse: "pulse var(--duration) ease-out infinite",
         shimmer: "shimmer 2s linear infinite",
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
       },
       keyframes: {
         grid: {
@@ -46,6 +47,10 @@ module.exports = {
           to: {
             backgroundPosition: "-200% 0",
           },
+        },
+        "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
         },
         pulse: {
           "0%, 100%": { boxShadow: "0 0 0 0 var(--pulse-color)" },

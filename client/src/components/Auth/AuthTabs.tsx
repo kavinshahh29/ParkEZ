@@ -5,18 +5,18 @@ import { Tabs } from "../ui/tabs"
 import { LoginForm  } from "./LoginForm";
 import { SignUpForm } from "./SignUpForm";
 
-export function AuthTabs( {googleLogin } : any) {
+export function AuthTabs( {googleLogin , twitterLogin } : any) {
   
   const tabs = [
     {
       title: "Sign Up",
       value: "signup",
-      content: <SignUpForm googleLogin={googleLogin}/>,
+      content: <SignUpForm googleLogin={googleLogin} twitterLogin={twitterLogin}/>,
     },
     {
       title: "Log In",
       value: "login",
-      content: <LoginForm googleLogin={googleLogin}/>,
+      content: <LoginForm googleLogin={googleLogin} twitterLogin={twitterLogin} />,
     },
   ];
   return (

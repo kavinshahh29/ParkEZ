@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
 
 
-import {getAuth} from 'firebase/auth';
+import {getAuth , RecaptchaVerifier} from 'firebase/auth';
 
 
 
@@ -22,6 +22,13 @@ initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 
 const auth = getAuth();
+auth.languageCode = 'en';
 
+declare global {
+  interface Window {
+    recaptchaVerifier: RecaptchaVerifier;
+    confirmationResult: any;
+  }
+}
 
 export  {auth};

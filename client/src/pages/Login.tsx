@@ -5,7 +5,7 @@ import { AuthTabs } from "../components/Auth/AuthTabs";
 
 
 export default function Login() {
-  const { googleLogin, } = useLogin();
+  const { googleLogin , twitterLogin } = useLogin();
 
 
 //   const {user} = useSelector((state: any) => state.user);
@@ -16,7 +16,7 @@ export default function Login() {
   return (
     <div>
       {/* <h1>Hello how are you {user?.email} </h1> */}
-      <AuthTabs googleLogin={googleLogin} />
+      <AuthTabs googleLogin={googleLogin} twitterLogin={twitterLogin} />
 
 
     </div>
