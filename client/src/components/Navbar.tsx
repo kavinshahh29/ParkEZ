@@ -14,6 +14,7 @@ import {
 import { Link } from "react-router-dom";
 import ProfileMenu from "./ProfileMenu";
 import { useSelector } from "react-redux";
+import { ModeToggle } from "../reducers/theme-toggle";
 // import { Button } from "./ui/button"
 // import { useSelector } from "react-redux"
 
@@ -36,7 +37,7 @@ export function Navbar() {
         <NavigationMenuList>
           <NavigationMenuItem>
             <Link className="flex justify-center items-center" to="/">
-              <img src="images/logo.png" alt="" className="h-14" />
+              <img src="images/logo2.png" alt="" className="h-12 rounded-md mx-3" />
               {/* <h1 className="text-2xl font-bold ml-2"></h1> */}
             </Link>
           </NavigationMenuItem>
@@ -69,6 +70,7 @@ export function Navbar() {
          
         </NavigationMenuList>
       </NavigationMenu>
+      <ModeToggle/>
       {/* {user? <Button className="ml-auto " variant={"outline"}>{user.username}</Button> : ""} */}
       {/* { !user    && */}
       {/* <Button className="ml-auto"><Link to="/login">Login</Link></Button> */}
