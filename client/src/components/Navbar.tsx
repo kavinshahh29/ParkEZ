@@ -37,7 +37,9 @@ export function Navbar() {
         <NavigationMenuList>
           <NavigationMenuItem>
             <Link className="flex justify-center items-center" to="/">
-              <img src="images/logo2.png" alt="" className="h-12 rounded-md mx-3" />
+              <img src="images/logo2.png" alt="" className="md:flex hidden h-12 rounded-md mx-3" />
+              <img src="images/parkezz_logo.png" alt="" className="md:hidden border flex rounded-full md:mx-3" />
+
               {/* <h1 className="text-2xl font-bold ml-2"></h1> */}
             </Link>
           </NavigationMenuItem>
@@ -66,11 +68,14 @@ export function Navbar() {
             </Link>
           </NavigationMenuItem>
           
-          { user &&  <ProfileMenu />}
          
         </NavigationMenuList>
       </NavigationMenu>
+      <div className="flex justify-center items-center space-x-2">
+          { user &&  <ProfileMenu />}
       <ModeToggle/>
+
+      </div>
       {/* {user? <Button className="ml-auto " variant={"outline"}>{user.username}</Button> : ""} */}
       {/* { !user    && */}
       {/* <Button className="ml-auto"><Link to="/login">Login</Link></Button> */}

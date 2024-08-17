@@ -33,7 +33,7 @@ export function SignUpForm( { googleLogin , twitterLogin} : any) {
   }
 
   return (
-    <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+    <div className="md:max-w-md max-w-xs w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Create an Account
       </h2>
@@ -45,16 +45,16 @@ export function SignUpForm( { googleLogin , twitterLogin} : any) {
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
             <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Tyler" type="text" />
+            <Input id="firstname" placeholder="Kris" type="text" />
           </LabelInputContainer>
           <LabelInputContainer>
             <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Durden" type="text" />
+            <Input id="lastname" placeholder="Patel" type="text" />
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="mno">Mobile Number</Label>
-          <Input id="mno" placeholder="+91 6969696969" type="text" onChange={handlePhoneNumberChange}/>
+          <Input id="mno" placeholder="+91 6666699999" type="text" onChange={handlePhoneNumberChange}/>
         </LabelInputContainer>
         
 

@@ -22,13 +22,16 @@ export default function ProfileMenu() {
     <div className=" pl-10">
       <DropdownMenu >
         <DropdownMenuTrigger>
-            <Button variant="secondary" className="h-[3rem]">
-                <Avatar className=" border-slate-500 border-2 mr-4">
+            <Button variant="secondary" className="md:h-[3rem] h-[2.8rem]">
+                <Avatar className=" border-slate-500 border-2 md:mr-4 h-8 w-8" >
                     <AvatarImage src={user?.photoURL} alt={user?.displayName}   className=""/>
                     {/* <h1>{user?.email}</h1> */}
                     {/* <p>{user?.photoURL}</p> */}
                 </Avatar>
+                <p className="md:flex hidden">
                 {user?.displayName}
+
+                </p>
             </Button>
         
 
