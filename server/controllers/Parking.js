@@ -3,22 +3,23 @@ const Parking = require("../models/Parking.js");
 
 exports.addParking = async (req, res) => {
   try {
-    const { address, location, photo_URL, video_URL, owner_id, description } =
+    const { address, location_type , location_coordinates , photo_URL, video_URL, owner_id, description } =
       req.body;
 
-    let parking = await Parking.findOne({ location });
+    let parking = await Parking.findOne({ location_coordinates });
 
     if (parking) {
-      return res
-        .json({ sucess: true, message: "Parking already exists" })
-        .status(200);
+      return res.status(400)
+        .json({ sucess: false, message: "Parking already exists" })
+        
     }
 
     // const _id = new  mongoose.
 
     parking = await Parking.create({
       address,
-      location,
+      location_type,
+      location_coordinates ,
       photo_URL,
       video_URL,
       owner_id,
@@ -41,9 +42,9 @@ exports.addParking = async (req, res) => {
 
 exports.removeParking = async (req, res) => {
   try {
-    const { _id } = req.body;
+    const { location_coordinates } = req.body;
 
-    let parking = await Parking.findOne({ _id });
+    let parking = await Parking.findOne({ location_coordinates });
 
     if (!parking) {
       return res
@@ -53,13 +54,10 @@ exports.removeParking = async (req, res) => {
 
     // const _id = new  mongoose.
 
-    parking = await Parking.deleteOne(_id);
-
-    await parking.save();
-
+    await Parking.deleteOne({location_coordinates});
     res.status(200).json({
       sucess: true,
-      message: "Parking saved successfully",
+      message: "Parking deleted successfully",
     });
   } catch (err) {
     res.status(400).json({
