@@ -9,8 +9,6 @@ exports.registerWithSocials = async (req,res)=>{
 
         if(user) { return res.json({sucess:true , message:"user already exists"}).status(200)};
 
-        // const _id = new  mongoose.
-
         user = await User.create({
             uid : uid ,
             fullName : displayName ,
