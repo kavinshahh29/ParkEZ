@@ -18,21 +18,23 @@ initializeApp(firebaseConfig);
 
 
 
-exports.isAuthenticated = async (req,res)=>{
+exports.isAuthenticated = async (req,res,next)=>{
     try{       
         const idToken = req.cookies?.jwtToken || req.headers.authorization.split(" ")[1] ;
         const decodedToken = await getAuth().verifyIdToken(idToken)
-        console.log(decodedToken);
-        return res.json({
-            user : decodedToken ,
-            success : true
-        }).status(200);
+        // console.log(decodedToken);
+        // return res.json({
+        //     user : decodedToken ,
+        //     success : true
+        // }).status(200);
+        if(decodedToken)
+            next();
     }
     catch(err){
         console.log(err)
         return res.status(400).json({
             success : false ,
-            error : err
+            error : "User not authenticated"
 
         })
     }

@@ -1,4 +1,4 @@
-import { GoogleAuthProvider , RecaptchaVerifier, signInWithPhoneNumber, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider , RecaptchaVerifier, signInWithPhoneNumber, signInWithPopup, signInWithRedirect } from "firebase/auth";
 import  {auth}  from "../firebase/config";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -68,11 +68,11 @@ export const useLogin = () => {
 
         try{
             const res= await signInWithPopup(auth ,provider);
+            // const res = await signInWithRedirect(auth, provider);
             if(!res){
                 throw new Error('Google Sign in failed');
             }
-
-            const user = res.user;
+            const user = res.user ;
             const userData = {
                 uid: user.uid,
                 email: user.email,
