@@ -1,4 +1,4 @@
-import { GoogleAuthProvider , RecaptchaVerifier, signInWithPhoneNumber, signInWithPopup, signInWithRedirect } from "firebase/auth";
+import { GoogleAuthProvider , RecaptchaVerifier, signInWithPhoneNumber, signInWithPopup } from "firebase/auth";
 import  {auth}  from "../firebase/config";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
