@@ -1,15 +1,18 @@
+const { default: mongoose } = require("mongoose");
 const User = require("../models/user");
 
 exports.registerWithSocials = async (req,res)=>{
-
     try{
-        const { displayName , email , photoURL } = req.body ;
+        const { uid , displayName , email , photoURL } = req.body ;
 
         let user = await User.findOne({email}) ;
 
-        if(user) { return res.json({sucess:false , message:"user already exists"}).status(400)};
+        if(user) { return res.json({sucess:true , message:"user already exists"}).status(200)};
+
+        // const _id = new  mongoose.
 
         user = await User.create({
+            uid : uid ,
             fullName : displayName ,
             email ,
             photoURL

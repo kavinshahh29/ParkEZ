@@ -9,10 +9,22 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/config';
+import axios from 'axios';
 
 function App() {
 
   const dispatch =  useDispatch();
+
+
+  const registerWithSocials = async (userData : any) => {
+    console.log(userData);
+    try {
+      const res = await axios.post('http://localhost:3000/api/v1/register', userData);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   
 
@@ -35,10 +47,23 @@ function App() {
           payload: userData,
         });
 
+        registerWithSocials(userData);
+
+
+
+        auth.currentUser?.getIdToken(/* forceRefresh */ true).then(function(idToken ) {
+          // console.log("user token, " , idToken);
+          document.cookie = `jwtToken=${idToken}; path=/`;        
+        })
+
+        
+
         // console.log(userData);
       }
     //   console.log(user);
     });
+
+    
 
     return unscribe;
   }, []);

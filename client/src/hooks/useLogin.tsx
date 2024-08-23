@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { TwitterAuthProvider } from "firebase/auth";
+// import axios from "axios"
 
 
 
@@ -50,6 +51,8 @@ export const useLogin = () => {
                 type:"SET_USER",
                 payload: userData
             })
+
+           
             navigate('/');
         }
         catch(err : any){
@@ -86,6 +89,9 @@ export const useLogin = () => {
                 type:"SET_USER",
                 payload: userData
             })
+
+            
+
             navigate('/');
             
 

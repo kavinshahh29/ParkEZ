@@ -5,8 +5,9 @@ const app = express() ;
 // routers 
 const userRouter = require('./routes/User')
 
+
 const corsConfig = {
-    origin : process.env.CLIENT_URL,
+    origin : "http://localhost:5173",
     credentials : true 
 }
 
@@ -16,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended : true})) ;
 
 
-app.use("/api/v1" , userRouter)
+app.use("/api/v1" ,  userRouter)
 
 app.use('/' , (req,res)=>{
     res.json({
