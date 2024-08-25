@@ -1,4 +1,4 @@
-const Parking = require("../models/Parking.js");
+const Parking = require("../models/parking.js");
 
 
 exports.getAllParkings = async (req, res) => {
