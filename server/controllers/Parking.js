@@ -1,5 +1,30 @@
-const { default: mongoose } = require("mongoose");
 const Parking = require("../models/Parking.js");
+
+
+exports.getAllParkings = async (req, res) => {
+  try{
+      const parkings = await Parking.find().populate("owner_id");
+      // console.log(parkings)
+
+      if(!parkings.length){
+        return res.json({
+          message : "No parkings currently present."
+        }).status(204);
+      }
+
+      return res.json({
+        parkings
+      }).status(200);
+  }
+  catch(err){
+
+    return res.json({
+      message : err
+    }).status(500);
+
+  }
+}
+
 
 exports.addParking = async (req, res) => {
   try {
@@ -7,6 +32,8 @@ exports.addParking = async (req, res) => {
       req.body;
 
     let parking = await Parking.findOne({ location_coordinates });
+
+    // console.log(parking);
 
     if (parking) {
       return res.status(400)

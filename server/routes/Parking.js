@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { addParking, removeParking } = require("../controllers/Parking");
+const { addParking, removeParking, getAllParkings } = require("../controllers/Parking");
 const { isAuthenticated } = require("../middlewares/auth");
 
-router.post("/addParking", isAuthenticated, addParking);
-router.post("/removeParking", isAuthenticated, removeParking);
+router.post("/parking", isAuthenticated, addParking);
+router.delete("/parking", isAuthenticated, removeParking);
+router.get("/parkings" , getAllParkings );
 
 module.exports = router;

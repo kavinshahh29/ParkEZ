@@ -14,7 +14,11 @@ const parkingSchema= new mongoose.Schema({
         type:mongoose.Schema.ObjectId,
         ref:"User"
     },
-    description:String
+    description:String ,
+    isVerified : {
+        type : Boolean ,
+        default : false ,
+    }
 })
 
 module.exports = mongoose.model('Parking' , parkingSchema) ;
