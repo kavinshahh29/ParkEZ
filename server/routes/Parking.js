@@ -5,6 +5,6 @@ const { isAuthenticated } = require("../middlewares/auth.js");
 
 router.post("/parking", isAuthenticated, addParking);
 router.delete("/parking", isAuthenticated, removeParking);
-router.get("/parkings" , getAllParkings );
+router.get("/parkings" , isAuthenticated  , getAllParkings );
 
 module.exports = router;

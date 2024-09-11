@@ -1,4 +1,5 @@
 const Parking = require("../models/parking.js");
+const User = require("../models/user.js");
 
 
 exports.getAllParkings = async (req, res) => {
@@ -42,6 +43,13 @@ exports.addParking = async (req, res) => {
     }
 
     // const _id = new  mongoose.
+    const user = await User.findOne({ uid: owner_id });
+    if (!user) {
+      return res.status(400).json({
+        sucess: false,
+        message: "User not found",
+      });
+    }
 
     parking = await Parking.create({
       address,
@@ -49,7 +57,7 @@ exports.addParking = async (req, res) => {
       location_coordinates ,
       photo_URL,
       video_URL,
-      owner_id,
+      owner_id : user._id,
       description,
     });
 
