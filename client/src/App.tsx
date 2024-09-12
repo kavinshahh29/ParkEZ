@@ -10,6 +10,8 @@ import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/config';
 import axios from 'axios';
+import MapExample from './components/map/Map';
+
 
 function App() {
 
@@ -17,7 +19,7 @@ function App() {
 
 
   const registerWithSocials = async (userData : any) => {
-    console.log(userData);
+    // console.log(userData);
     try {
       const res = await axios.post('http://localhost:3000/api/v1/register', userData);
       console.log(res);
@@ -84,7 +86,8 @@ function App() {
       <div className='flex min-h-screen flex-col items-center mt-10'>
         <Routes>
           <Route path="/" element={<Home/>} />
-          <Route path='/login' element={<Login/>} />
+          <Route path='/authentication' element={<Login/>} />
+          <Route path="/parking" element={<MapExample/>} />
           
 
         </Routes>

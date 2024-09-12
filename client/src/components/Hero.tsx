@@ -32,7 +32,7 @@ export default function Hero() {
       {
         !user && 
         <div className="flex justify-center items-center mb-6">
-            <Link to="/login">
+            <Link to="/authentication">
               <PulsatingButton className="h-10 text-sm">
                 GET STARTED
               </PulsatingButton>
