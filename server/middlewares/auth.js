@@ -21,13 +21,6 @@ initializeApp(firebaseConfig);
 exports.isAuthenticated = async (req,res,next)=>{
     try{       
         const idToken = req.cookies?.jwtToken || req.headers.authorization.split(" ")[1] ;
-        // console.log(idToken)
-
-        if(idToken == process.env.PASSWORD) {
-            next();
-            return;
-        }
-
         const decodedToken = await getAuth().verifyIdToken(idToken)
         // console.log(decodedToken);
         // return res.json({
@@ -36,8 +29,6 @@ exports.isAuthenticated = async (req,res,next)=>{
         // }).status(200);
         if(decodedToken)
             next();
-        
-        return;
     }
     catch(err){
         console.log(err)

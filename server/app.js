@@ -1,16 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const dotenv = require('dotenv')
-
-dotenv.config({path : './.env'})
 
 // routers
 const userRouter = require("./routes/User");
 const ParkingRouter = require("./routes/Parking");
 
 const corsConfig = {
-  origin: process.env.CLIENT_URL,
+  origin: "http://localhost:5173",
   credentials: true,
 };
 
