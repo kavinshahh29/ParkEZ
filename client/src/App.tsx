@@ -1,39 +1,40 @@
-
-import './App.css'
+import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from './pages/Home';
-import { Navbar } from './components/Navbar';
-import Login from './pages/Login';
-import { Footer } from './components/Footer';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase/config';
-import axios from 'axios';
+import Home from "./pages/Home";
+import { Navbar } from "./components/Navbar";
+import Login from "./pages/Login";
+import { Footer } from "./components/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/config";
+import axios from "axios";
+import MapExample from "./components/map/Map";
 
 function App() {
+  const dispatch = useDispatch();
 
-  const dispatch =  useDispatch();
-
-
-  const registerWithSocials = async (userData : any) => {
+  const registerWithSocials = async (userData: any) => {
     console.log(userData);
     try {
-      const res = await axios.post('http://localhost:3000/api/v1/register', userData);
+      const res = await axios.post(
+        "http://localhost:3000/api/v1/register",
+        userData
+      );
       console.log(res);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  
+  const { user } = useSelector((state: any) => state.user);
 
   useEffect(() => {
     const unscribe = onAuthStateChanged(auth, (googleUser) => {
       if (googleUser) {
         console.log("Inside Unscribe");
         // console.log(user);
-        // setGoogleUser(googleUser); 
+        // setGoogleUser(googleUser);
 
         const tempUser = googleUser;
         const userData = {
@@ -49,54 +50,58 @@ function App() {
 
         registerWithSocials(userData);
 
+        console.log(user);
 
-
-        auth.currentUser?.getIdToken(/* forceRefresh */ true).then(function(idToken ) {
-          // console.log("user token, " , idToken);
-          document.cookie = `jwtToken=${idToken}; path=/`;        
-        })
-
-        
+        auth.currentUser
+          ?.getIdToken(/* forceRefresh */ true)
+          .then(function (idToken) {
+            // console.log("user token, " , idToken);
+            document.cookie = `jwtToken=${idToken}; path=/`;
+          });
 
         // console.log(userData);
       }
-    //   console.log(user);
+      //   console.log(user);
     });
-
-    
 
     return unscribe;
   }, []);
 
-
-  
+  let routes;
+  if (user) {
+    routes = (
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/authentication" element={<Login />} />
+        <Route path="/parkings" element={<MapExample />} />
+        <Route path="*" element={<Home/>} />
+      </Routes>
+    );
+  }
+  else{
+    routes = (
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/authentication" element={<Login />} />
+        <Route path="*" element={<Login/>} />
+      </Routes>
+    )
+  }
 
   return (
-    <div className=' font-primary '>
-    <Router>
+    <div className=" font-primary ">
+      <Router>
+        <Navbar />
 
-      
-      <Navbar/>
+        {/* <Toaster/> */}
+        <div className="flex min-h-screen flex-col items-center mt-10">
+        {routes}
 
-    
-     
-      {/* <Toaster/> */}
-      <div className='flex min-h-screen flex-col items-center mt-10'>
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path='/login' element={<Login/>} />
-          
-
-        </Routes>
-      </div>
-
-      <Footer/>
-
-   
-    </Router>
-
-  </div>
-  )
+        </div>
+        <Footer />
+      </Router>
+    </div>
+  );
 }
 
-export default App
+export default App;

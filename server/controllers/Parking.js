@@ -1,11 +1,29 @@
 const Parking = require("../models/Parking.js");
 
+
+exports.getAllParking = async (req,res) =>{
+    try{
+        const parkings = await Parking.find();
+        return res.status(200).json({
+            success : true,
+            data : parkings
+        })
+    }
+    catch(err){
+        return res.status(500).json({
+            success : false,
+            message : err.message
+        })
+    }
+}
+
 exports.addParking = async (req, res) => {
   try {
-    const { address, location, photo_URL, video_URL, owner_id, description } =
+    const { address, location_coordinates , photo_URL, video_URL, owner_id, description } =
       req.body;
 
-    let parking = await Parking.findOne({ location });
+    console.log(address , location_coordinates );
+    let parking = await Parking.findOne({ location_coordinates });
 
     if (parking) {
       return res.status(409).json({
@@ -16,7 +34,7 @@ exports.addParking = async (req, res) => {
 
     parking = await Parking.create({
       address,
-      location,
+      location_coordinates,
       photo_URL,
       video_URL,
       owner_id,
@@ -38,9 +56,11 @@ exports.addParking = async (req, res) => {
   }
 };
 
-exports.removeParking = async (req, res) => {
+exports.removeParking = async (req, res ) => {
   try {
-    const { _id } = req.body;
+    const _id = req.params.id;
+    console.log(_id)
+    
 
     let parking = await Parking.findById(_id);
 

@@ -5,14 +5,24 @@ exports.addBooking = async (req, res) => {
   try {
     const { user_id, parking_id, arrival_time, exit_time } = req.body;
 
-    let booking = await Booking.findOne({ parking_id, arrival_time });
+    let overlappingBookings = await Booking.find({
+      parking_id,
+      $or: [
+        { arrival_time: { $lt: exit_time }, exit_time: { $gt: arrival_time } }
+      ]
+    });
 
-    if (booking) {
-      return res.status(409).json({
-        success: false,
-        message: "Booking slot not available at this time",
-      });
-    }
+    overlappingBookings.map((overlappingBooking)=>{
+      if (overlappingBooking) {
+        return res.status(400).json({
+          success: false,
+          message: "Booking slot not available at this time"
+        });
+      }
+    })
+
+   
+
 
     booking = new Booking({
       user_id,

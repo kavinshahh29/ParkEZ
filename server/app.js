@@ -5,6 +5,7 @@ const app = express();
 // routers
 const userRouter = require("./routes/User");
 const ParkingRouter = require("./routes/Parking");
+const bookingRouter = require("./routes/Booking");
 
 const corsConfig = {
   origin: "http://localhost:5173",
@@ -18,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/v1", userRouter);
 
 app.use("/api/v1", ParkingRouter);
+
+app.use("/api/v1" , bookingRouter) ;
 
 app.use("/", (req, res) => {
   res

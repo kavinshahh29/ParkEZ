@@ -4,32 +4,22 @@ import { cn } from "../lib/utils";
 
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
+
   navigationMenuTriggerStyle,
 } from "./ui/navigation-menu";
 import { Link } from "react-router-dom";
 import ProfileMenu from "./ProfileMenu";
 import { useSelector } from "react-redux";
 import { ModeToggle } from "../reducers/theme-toggle";
-// import { Button } from "./ui/button"
-// import { useSelector } from "react-redux"
 
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Home",
-    href: "/",
-    description: "",
-  },
-];
 
 export function Navbar() {
-  // const user = useSelector((state : any) => state.user.user) || null;
-  const { user} = useSelector((state: any) => state.user);
-  // console.log(user);
+
+  const { user } = useSelector((state: any) => state.user);
+
 
   return (
     <div className="border-b p-2 shadow-md flex justify-around items-center z-50">
@@ -37,28 +27,27 @@ export function Navbar() {
         <NavigationMenuList>
           <NavigationMenuItem>
             <Link className="flex justify-center items-center" to="/">
-              <img src="images/logo2.png" alt="" className="md:flex hidden h-12 rounded-md mx-3" />
-              <img src="images/parkezz_logo.png" alt="" className="md:hidden border flex rounded-full md:mx-3" />
+              <img
+                src="images/logo2.png"
+                alt=""
+                className="md:flex hidden h-12 rounded-md mx-3"
+              />
+              <img
+                src="images/parkezz_logo.png"
+                alt=""
+                className="md:hidden border flex rounded-full md:mx-3"
+              />
 
               {/* <h1 className="text-2xl font-bold ml-2"></h1> */}
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Explore</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                {components.map((component) => (
-                  <ListItem
-                    key={component.title}
-                    title={component.title}
-                    href={component.href}
-                    className={""}
-                  >
-                    {component.description}
-                  </ListItem>
-                ))}
-              </ul>
-            </NavigationMenuContent>
+            <ListItem
+              key="parking"
+              title="Parking"
+              href="/parkings"
+              className={""}
+            />
           </NavigationMenuItem>
           <NavigationMenuItem>
             <Link to="/about">
@@ -67,14 +56,11 @@ export function Navbar() {
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
-          
-         
         </NavigationMenuList>
       </NavigationMenu>
       <div className="flex justify-center items-center space-x-2">
-          { user &&  <ProfileMenu />}
-      <ModeToggle/>
-
+        {user && <ProfileMenu />}
+        <ModeToggle />
       </div>
       {/* {user? <Button className="ml-auto " variant={"outline"}>{user.username}</Button> : ""} */}
       {/* { !user    && */}
@@ -89,13 +75,13 @@ const ListItem = React.forwardRef(
     {
       className,
       title,
-      children,
+
       href,
       ...rest
     }: {
       className: string;
       title: string;
-      children: React.ReactNode;
+
       href: string;
     },
     ref
@@ -112,9 +98,6 @@ const ListItem = React.forwardRef(
           {...rest}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
         </Link>
       </li>
     );
