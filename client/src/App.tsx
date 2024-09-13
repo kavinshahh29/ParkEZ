@@ -10,6 +10,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/config";
 import axios from "axios";
 import MapExample from "./components/map/Map";
+import AddParking from "./components/map/AddParking";
 
 function App() {
   const dispatch = useDispatch();
@@ -74,6 +75,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/authentication" element={<Login />} />
         <Route path="/parkings" element={<MapExample />} />
+        <Route path="parking/add" element={<AddParking/>} />
         <Route path="*" element={<Home/>} />
       </Routes>
     );
