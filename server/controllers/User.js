@@ -4,6 +4,7 @@ const User = require("../models/user");
 exports.registerWithSocials = async (req, res) => {
   try {
     const { uid, displayName, email, photoURL } = req.body;
+    console.log(req.body);
 
     let user = await User.findOne({ email });
 

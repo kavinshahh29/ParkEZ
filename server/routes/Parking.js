@@ -9,7 +9,7 @@ const {
 } = require("../controllers/Parking");
 const { isAuthenticated } = require("../middlewares/auth");
 
-router.get("/parkings" , isAuthenticated , getAllParking)
+router.get("/parkings", isAuthenticated, getAllParking);
 router.post("/addParking", isAuthenticated, addParking);
 router.delete("/removeParking/:id", isAuthenticated, removeParking);
 router.post("/verifyParking", isAuthenticated, verifyParking);

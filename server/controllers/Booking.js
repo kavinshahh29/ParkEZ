@@ -8,21 +8,18 @@ exports.addBooking = async (req, res) => {
     let overlappingBookings = await Booking.find({
       parking_id,
       $or: [
-        { arrival_time: { $lt: exit_time }, exit_time: { $gt: arrival_time } }
-      ]
+        { arrival_time: { $lt: exit_time }, exit_time: { $gt: arrival_time } },
+      ],
     });
 
-    overlappingBookings.map((overlappingBooking)=>{
+    overlappingBookings.map((overlappingBooking) => {
       if (overlappingBooking) {
         return res.status(400).json({
           success: false,
-          message: "Booking slot not available at this time"
+          message: "Booking slot not available at this time",
         });
       }
-    })
-
-   
-
+    });
 
     booking = new Booking({
       user_id,

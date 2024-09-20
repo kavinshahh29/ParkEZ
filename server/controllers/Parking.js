@@ -1,28 +1,32 @@
 const Parking = require("../models/Parking.js");
 
-
-exports.getAllParking = async (req,res) =>{
-    try{
-        const parkings = await Parking.find();
-        return res.status(200).json({
-            success : true,
-            data : parkings
-        })
-    }
-    catch(err){
-        return res.status(500).json({
-            success : false,
-            message : err.message
-        })
-    }
-}
-
+exports.getAllParking = async (req, res) => {
+  try {
+    const parkings = await Parking.find();
+    return res.status(200).json({
+      success: true,
+      data: parkings,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
 exports.addParking = async (req, res) => {
   try {
-    const { address, location_coordinates , photo_URL, video_URL, owner_id, description } =
-      req.body;
+    const {
+      address,
+      location_coordinates,
+      photo_URL,
+      video_URL,
+      owner_id,
+      description,
+    } = req.body;
 
-    console.log(address , location_coordinates );
+    console.log("Request Body: ", req.body);
+
     let parking = await Parking.findOne({ location_coordinates });
 
     if (parking) {
@@ -43,12 +47,13 @@ exports.addParking = async (req, res) => {
 
     await parking.save();
 
-    return res.status(201).json({
+    return res.status(200).json({
       success: true,
       message: "Parking added successfully",
       data: parking,
     });
   } catch (err) {
+    console.error("Error adding parking: ", err);
     return res.status(500).json({
       success: false,
       message: err.message,
@@ -56,11 +61,10 @@ exports.addParking = async (req, res) => {
   }
 };
 
-exports.removeParking = async (req, res ) => {
+exports.removeParking = async (req, res) => {
   try {
     const _id = req.params.id;
-    console.log(_id)
-    
+    console.log(_id);
 
     let parking = await Parking.findById(_id);
 

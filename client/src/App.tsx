@@ -56,7 +56,7 @@ function App() {
         auth.currentUser
           ?.getIdToken(/* forceRefresh */ true)
           .then(function (idToken) {
-            // console.log("user token, " , idToken);
+            console.log("user token, ", idToken);
             document.cookie = `jwtToken=${idToken}; path=/`;
           });
 
@@ -75,19 +75,18 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/authentication" element={<Login />} />
         <Route path="/parkings" element={<MapExample />} />
-        <Route path="parking/add" element={<AddParking/>} />
-        <Route path="*" element={<Home/>} />
+        <Route path="parking/add" element={<AddParking />} />
+        <Route path="*" element={<Home />} />
       </Routes>
     );
-  }
-  else{
+  } else {
     routes = (
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/authentication" element={<Login />} />
-        <Route path="*" element={<Login/>} />
+        <Route path="*" element={<Login />} />
       </Routes>
-    )
+    );
   }
 
   return (
@@ -97,8 +96,7 @@ function App() {
 
         {/* <Toaster/> */}
         <div className="flex min-h-screen flex-col items-center mt-10">
-        {routes}
-
+          {routes}
         </div>
         <Footer />
       </Router>
