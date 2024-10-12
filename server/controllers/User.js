@@ -34,3 +34,18 @@ exports.registerWithSocials = async (req, res) => {
     });
   }
 };
+
+exports.getUserdetails = async (req, res) => {
+  try {
+    const { uid } = req.body.uid;
+    let user = await User.findOne({ uid });
+    res.status(200).json({
+      user,
+    });
+  } catch (err) {
+    res.status(400).json({
+      sucess: false,
+      message: err.message,
+    });
+  }
+};

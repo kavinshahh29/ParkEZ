@@ -83,7 +83,7 @@ export default function AddParking() {
         {
           withCredentials: true,
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjhkNzU2OWQyODJkNWM1Mzk5MmNiYWZjZWI2NjBlYmQ0Y2E1OTMxM2EiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiS2F2aW4gU2hhaCIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NMQUl1NzZkUWhXU2pvSWg4RlJORlhpZGg5Zi0yNUlaTEQyUTZVV1pKZ2FlOVZET1E9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGFya2V6LWM0ZTA5IiwiYXVkIjoicGFya2V6LWM0ZTA5IiwiYXV0aF90aW1lIjoxNzI4MDQxNjI2LCJ1c2VyX2lkIjoic1IyTHRaRzg0bmV1WjhRckZWamhrOEZYZG85MiIsInN1YiI6InNSMkx0Wkc4NG5ldVo4UXJGVmpoazhGWGRvOTIiLCJpYXQiOjE3MjgwNDE2MzAsImV4cCI6MTcyODA0NTIzMCwiZW1haWwiOiJrYXZpbnNoYWgyOTAzMDRAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDQyNTM1NDA5NzgzODcxMTM4MTciXSwiZW1haWwiOlsia2F2aW5zaGFoMjkwMzA0QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6Imdvb2dsZS5jb20ifX0.uTmoEoI_Un1CpSVQ1pwDFqbOe7shXwySBjSzVGakxr-W19fxXN2tn1HrH08EB7sFAMZnRlmDRoOm60FurlDUVQKLysbFkqFS17j1Oq7omq2z89B_Hj2KXn1H71jzo9iJqAvZ-leT1m3kn2ptfa3bNUmYjmAVbEea_05HAAeGEDlxQClxHOfF_wiHap2w6cVTwJnoYcThIVYL51g3panpoyoSvIBfxYJd_ry3n8iQVqtscIysiMAgbIkU6qIUo5BrH8kOdK7ijpghvieKeIpTTi2ch6MBMPioVm1P8CkeHFsnPao1JYSt8UKcZKBY86a9ymrHbpmMtiAymC2N3gKcZw`,
           },
         }
       );
