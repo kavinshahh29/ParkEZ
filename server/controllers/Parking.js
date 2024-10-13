@@ -1,5 +1,5 @@
 const Parking = require("../models/Parking.js");
-const User = require("../models/user");
+const User = require("../models/User.js");
 
 exports.getAllParking = async (req,res) =>{
     try{

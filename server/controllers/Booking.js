@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const Booking = require("../models/Booking.js");
 
 exports.addBooking = async (req, res) => {
@@ -19,7 +18,7 @@ exports.addBooking = async (req, res) => {
       });
     }
 
-    
+
     console.log(user_id, parking_id, arrival_time, exit_time, vehicle_number , vehicle_type);
 
     booking = new Booking({

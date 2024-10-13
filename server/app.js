@@ -1,14 +1,19 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const dotenv = require("dotenv");
+
+dotenv.config({ path: "./.env" });
 
 // routers
 const userRouter = require("./routes/User");
 const ParkingRouter = require("./routes/Parking");
 const bookingRouter = require("./routes/Booking");
 
+
+
 const corsConfig = {
-  origin: "http://localhost:5173",
+  origin: process.env.CLIENT_URL,
   credentials: true,
 };
 
