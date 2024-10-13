@@ -3,7 +3,7 @@ const Booking = require("../models/Booking.js");
 
 exports.addBooking = async (req, res) => {
   try {
-    const { user_id, parking_id, arrival_time, exit_time } = req.body;
+    const { user_id, parking_id, arrival_time, exit_time , vehicle_number , vehicle_type } = req.body;
 
     let overlappingBookings = await Booking.find({
       parking_id,
@@ -12,22 +12,27 @@ exports.addBooking = async (req, res) => {
       ],
     });
 
-    overlappingBookings.map((overlappingBooking) => {
-      if (overlappingBooking) {
-        return res.status(400).json({
-          success: false,
-          message: "Booking slot not available at this time",
-        });
-      }
-    });
+    if (overlappingBookings.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Booking slot not available at this time",
+      });
+    }
+
+    
+    console.log(user_id, parking_id, arrival_time, exit_time, vehicle_number , vehicle_type);
 
     booking = new Booking({
       user_id,
       parking_id,
       arrival_time,
       exit_time,
-      status: "Success",
+      status: "Requested",
       payment_status: "Pending",
+      vehicle_details: {
+        vehicle_number,
+        vehicle_type,
+      },
     });
 
     await booking.save();
@@ -38,6 +43,7 @@ exports.addBooking = async (req, res) => {
       data: booking,
     });
   } catch (err) {
+    console.log(err);
     return res.status(500).json({
       success: false,
       message: err.message,

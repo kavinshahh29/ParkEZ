@@ -13,6 +13,7 @@ import MapExample from "./components/parking/Map"
 import AddParking from "./components/parking/AddParking";
 import NewsTicker from "./components/NewsTicker";
 import ParkingDetails from "./pages/Parking/ParkingDetails";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const dispatch = useDispatch();
@@ -94,6 +95,7 @@ function App() {
 
   return (
     <div className=" font-primary ">
+      <Toaster/>
       <Router>
         <NewsTicker/>
         <Navbar />

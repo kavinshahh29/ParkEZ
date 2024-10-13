@@ -4,6 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import ReactMapGL, {
   FullscreenControl,
   GeolocateControl,
+  Marker,
   NavigationControl,
   ScaleControl,
 } from "react-map-gl";
@@ -29,6 +30,11 @@ type TPakring = {
 
 const TOKEN = import.meta.env.VITE_MAPBOX_KEY;
 export default function AddParking() {
+  const [markerPosition, setMarkerPosition] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
+
   const [viewport, setViewport] = useState({
     latitude: 22.995275,
     longitude: 72.662987,
@@ -42,8 +48,8 @@ export default function AddParking() {
       lat: 0,
       log: 0,
     },
-    photo_URL: "",
-    video_URL: "",
+    photo_URL: "/default.png",
+    video_URL: "/default.mp3",
     owner_id: "",
     description: "",
   });
@@ -65,25 +71,30 @@ export default function AddParking() {
   const handleFormSubmit = async (e: any) => {
     e.preventDefault();
 
+  
     console.log(parkingForm);
     console.log(user);
 
     try {
-      let token = document.cookie.split("=")[1];
+      const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("jwtToken="))
+      ?.split("=")[1];
+      // console.log(token);
       const response = await axios.post(
-        "http://localhost:5000/api/v1/addParking", // i have added here statically portno now made change as per  .env
+        "http://localhost:3000/api/v1/addParking",
         {
           address: parkingForm.address,
           location_coordinates: parkingForm.location_coordinates,
           photo_URL: parkingForm.photo_URL,
           video_URL: parkingForm.video_URL,
-          owner_id: user.uid, //  add correct owner id
+          owner_id: user.uid, 
           description: parkingForm.description,
         },
         {
           withCredentials: true,
           headers: {
-            Authorization: `Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjhkNzU2OWQyODJkNWM1Mzk5MmNiYWZjZWI2NjBlYmQ0Y2E1OTMxM2EiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiS2F2aW4gU2hhaCIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NMQUl1NzZkUWhXU2pvSWg4RlJORlhpZGg5Zi0yNUlaTEQyUTZVV1pKZ2FlOVZET1E9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGFya2V6LWM0ZTA5IiwiYXVkIjoicGFya2V6LWM0ZTA5IiwiYXV0aF90aW1lIjoxNzI4MDQxNjI2LCJ1c2VyX2lkIjoic1IyTHRaRzg0bmV1WjhRckZWamhrOEZYZG85MiIsInN1YiI6InNSMkx0Wkc4NG5ldVo4UXJGVmpoazhGWGRvOTIiLCJpYXQiOjE3MjgwNDE2MzAsImV4cCI6MTcyODA0NTIzMCwiZW1haWwiOiJrYXZpbnNoYWgyOTAzMDRAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDQyNTM1NDA5NzgzODcxMTM4MTciXSwiZW1haWwiOlsia2F2aW5zaGFoMjkwMzA0QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6Imdvb2dsZS5jb20ifX0.uTmoEoI_Un1CpSVQ1pwDFqbOe7shXwySBjSzVGakxr-W19fxXN2tn1HrH08EB7sFAMZnRlmDRoOm60FurlDUVQKLysbFkqFS17j1Oq7omq2z89B_Hj2KXn1H71jzo9iJqAvZ-leT1m3kn2ptfa3bNUmYjmAVbEea_05HAAeGEDlxQClxHOfF_wiHap2w6cVTwJnoYcThIVYL51g3panpoyoSvIBfxYJd_ry3n8iQVqtscIysiMAgbIkU6qIUo5BrH8kOdK7ijpghvieKeIpTTi2ch6MBMPioVm1P8CkeHFsnPao1JYSt8UKcZKBY86a9ymrHbpmMtiAymC2N3gKcZw`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -93,7 +104,7 @@ export default function AddParking() {
         console.log(response.data);
       }
     } catch (error) {
-      // console.error("Error adding parking:", error);
+      console.error("Error adding parking:", error);
       alert("Failed to add parking.");
     }
   };
@@ -107,6 +118,9 @@ export default function AddParking() {
         setViewport={setViewport}
         setParkingForm={setParkingForm}
         parkingForm={parkingForm}
+        markerPosition={markerPosition}
+        setMarkerPosition={setMarkerPosition}
+       
       />
 
       <form
@@ -147,7 +161,7 @@ export default function AddParking() {
           ></Input>
         </div>
 
-        <div>
+        {/* <div>
           <label htmlFor="Photo">Photo</label>
           <input
             type="file"
@@ -155,7 +169,7 @@ export default function AddParking() {
             accept="image/*"
             onChange={handleFormChange}
           />
-        </div>
+        </div> */}
         <button
           type="submit"
           className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
@@ -172,11 +186,15 @@ function MapComponent({
   setViewport,
   setParkingForm,
   parkingForm,
+  setMarkerPosition ,
+  markerPosition
 }: {
   viewport: any;
   setViewport: any;
   setParkingForm: any;
   parkingForm: any;
+  setMarkerPosition : any ,
+  markerPosition : any
 }) {
   return (
     <div className="h-full">
@@ -189,16 +207,35 @@ function MapComponent({
           setViewport(evt.viewState);
         }}
         onClick={(e) => {
+          const lat = e.lngLat.lat;
+          const lng = e.lngLat.lng;
+          
+         
+          setMarkerPosition({ lat, lng });
+
+        
           setParkingForm({
             ...parkingForm,
             location_coordinates: {
-              lat: e.lngLat["lat"],
-              log: e.lngLat["lng"],
+              lat,
+              lng,
             },
           });
           console.log(parkingForm);
         }}
       >
+        {markerPosition && (
+          <Marker latitude={markerPosition.lat} longitude={markerPosition.lng}>
+            {/* <div
+              style={{
+                backgroundColor: "red",
+                height: "10px",
+                width: "10px",
+                borderRadius: "50%",
+              }}
+            /> */}
+          </Marker>
+        )}
         <FullscreenControl />
         <GeolocateControl />
         <NavigationControl />

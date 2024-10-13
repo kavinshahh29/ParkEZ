@@ -42,7 +42,7 @@ export default function CustomPopup({
       maxWidth="500px"
 
       className="bg-[#111] shadow-lg rounded-lg p-4 z-50 "
-      anchor="bottom-right"
+      anchor="bottom-left"
     >
       <div className="flex flex-col bg-[#111] h-full font-primary">
         <h3 className="text-lg font-bold mb-2">{popupInfo.address}</h3>

@@ -43,6 +43,14 @@ export function Navbar() {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <ListItem
+              key="home"
+              title="Home"
+              href="/"
+              className={""}
+            />
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <ListItem
               key="parking"
               title="Parking"
               href="/parkings"

@@ -21,7 +21,7 @@ const bookingSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["Success", "Cancelled", "Accepted", "Available"],
+    enum: ["Requested", "Cancelled", "Approved", "Completed"],
     default: "Available",
   },
   payment_status: {
@@ -31,7 +31,7 @@ const bookingSchema = new mongoose.Schema({
   },
   vehicle_details: {
     type: {
-      vehicle_no: {
+      vehicle_number: {
         type: String,
         required: true,
       },

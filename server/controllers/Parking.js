@@ -6,7 +6,7 @@ exports.getAllParking = async (req,res) =>{
         const parkings = await Parking.find().populate("owner_id");
         return res.status(200).json({
             success : true,
-            data : parkings
+            parkings : parkings
         })
     }
     catch(err){

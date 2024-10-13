@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import DateTimePicker from "../ui/DateTimePicker";
+import useApi from "../../hooks/useApi";
+import toast from "react-hot-toast";
 // import DateTimePicker from "react-datetime-picker"; 
 
 
@@ -16,36 +18,38 @@ type ParkingBooking = {
   exit_time: any;
   vehicle_number: string;
   vehicle_type: string;
+
 };
 
 const ParkingReservationForm: React.FC<ParkingReservationFormProps> = ({
   parkingId,
   userId,
 }) => {
-  const [loading, setLoading] = useState(false);
+ 
+  const { loading , post } = useApi();
 
   const [bookingForm, setBookingForm] = useState<ParkingBooking>({
     user_id: userId._id,
     parking_id: parkingId,
-    arrival_time: null,
-    exit_time: null,
+    arrival_time: new Date(),
+    exit_time: new Date(new Date().setDate(new Date().getDate() + 1)),
     vehicle_number: "",
     vehicle_type: "car",
+
   });
 
   const handleBooking = async () => {
-    // setLoading(true);
-    // try {
-    //   const response = await axios.post("/api/bookings", bookingForm);
-    //   console.log(response.data);
-    // } catch (error) {
-    //   console.error("Failed to book parking:", error);
-    // } finally {
-    //   setLoading(false);
-    // }
-    setLoading(true);
-    console.log(bookingForm);
-    setLoading(false);
+   
+    toast.promise(
+      post("http://localhost:3000/api/v1/booking", bookingForm),
+      {
+        loading: 'Booking in progress...',
+        success: <b>Booking successful!</b>,
+        error: <b>
+            Falied to book parking slot. Parking slot might be already booked.
+        </b>,
+      }
+    );
   };
 
   const onChange = (value: any, name: string) => {
@@ -85,7 +89,9 @@ const ParkingReservationForm: React.FC<ParkingReservationFormProps> = ({
             type="text"
             className="border-gray-300 border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             placeholder="Enter Vehicle Number"
-            onChange={(e) => onChange(e.target.value, "vehicle_number")}
+            onChange={(e) => {onChange(e.target.value, "vehicle_number")
+                // console.log(bookingForm.vehicle_number);
+            }}
             />
         </div>
 

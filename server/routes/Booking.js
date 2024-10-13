@@ -7,8 +7,8 @@ const {
 } = require("../controllers/Booking");
 const { isAuthenticated } = require("../middlewares/auth");
 
-router.post("/addBooking", isAuthenticated, addBooking);
-router.post("/updateExitTime", isAuthenticated, updateExitTime);
+router.post("/booking", isAuthenticated, addBooking);
+router.put("/booking", isAuthenticated, updateExitTime);
 router.post("/removeBooking", isAuthenticated, removeBooking);
 
 module.exports = router;

@@ -60,14 +60,18 @@ export default function ParkingDetails() {
   if (!parking) {
     return <div>Loading...</div>;
   }
-  const handleReserve = (pickupDate: Date | null, dropDate: Date | null) => {
-    // Handle reservation logic here
-    console.log("Pickup Date:", pickupDate);
-    console.log("Drop Date:", dropDate);
-  };
 
   return (
     <div className="h-full py-10  px-10 border-2 rounded-lg shadow-md">
+    
+        <button
+          onClick={() => navigate("/parkings")}
+          className="bg-blue-500 text-white px-4 py-2 rounded-md"
+        >
+          Go Back
+        </button>
+        
+
       <div className="max-w-4xl mx-autoshadow-md rounded-lg p-6">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/3">
@@ -123,7 +127,6 @@ export default function ParkingDetails() {
 
       <div className="flex md:flex-row flex-col justify-center items-center md:space-y-0 md:space-x-10 space-x-0 space-y-4 mt-4">
         <div className="rounded-lg ">
-  
           <SmallMap
             latitude={parking.location_coordinates.lat}
             longitude={parking.location_coordinates.lng}

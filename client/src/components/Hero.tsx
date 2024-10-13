@@ -4,10 +4,11 @@ import { PlaceholdersAndVanishInput } from "./ui/placeholders-and-vanish-input";
 import { TypeWriter } from "./TypeWriter";
 import FlipWordsComp from "./FlipWordsComp";
 import PulsatingButton from "./ui/pulsating-button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function Hero() {
+  const navigate = useNavigate();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
   };
@@ -15,6 +16,11 @@ export default function Hero() {
     e.preventDefault();
     console.log("submitted");
   };
+
+  const onPlaceSelect = ({ latitude, longitude }: any) => {
+    console.log({ latitude, longitude });
+    navigate(`/parkings?lat=${latitude}&lng=${longitude}`);
+  }
 
   const { user } = useSelector((state: any) => state.user);
 
@@ -46,6 +52,8 @@ export default function Hero() {
           <PlaceholdersAndVanishInput
             onChange={handleChange}
             onSubmit={onSubmit}
+            onPlaceSelect={onPlaceSelect}
+            
           />
         </p>
       </div>

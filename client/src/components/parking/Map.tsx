@@ -1,4 +1,3 @@
-import axios from "axios";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useEffect, useState } from "react";
 import ReactMapGL, {
@@ -7,14 +6,13 @@ import ReactMapGL, {
   NavigationControl,
   ScaleControl,
 } from "react-map-gl";
-// import CustomMarker from "./CustomMarker";
-// import CustomPopup from "./CustomPopup";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import ShimmerButton from "../magicui/shimmer-button";
 import CustomMarker from "./CustomMarker";
 import CustomPopup from "./CustomPopup";
-// import Map from "react-map-gl";
+import useApi from "../../hooks/useApi";
+import SearchForm from "./SearchForm";
 
 const TOKEN = import.meta.env.VITE_MAPBOX_KEY;
 
@@ -40,31 +38,24 @@ export default function MapExample() {
   });
 
   const [popupInfo, setPopupInfo] = useState<any>(null);
-
   const [parkings, setParking] = useState<TPakring[]>([]);
+  const { loading, get } = useApi();
+  const { user } = useSelector((state: any) => state.user);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const fetchParkings = async () => {
-    const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("jwtToken="))
-      ?.split("=")[1];
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/parkings", {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      // console.log(res.data.data);
-      setParking(res.data.data);
-      // console.log(parkings);
+      const parkings = await get("http://localhost:3000/api/v1/parkings");
+      setParking(parkings.parkings);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
-  const { user } = useSelector((state: any) => state.user);
-  const navigate = useNavigate();
+  const handlePlaceSelect = ({ latitude, longitude }: any) => {
+    setViewport({ ...viewport, latitude, longitude, zoom: 14 });
+  };
 
   useEffect(() => {
     if (!user) {
@@ -72,21 +63,28 @@ export default function MapExample() {
     }
 
     fetchParkings();
-  }, []);
+
+    // Extract lat and lng from query params if they exist
+    const params = new URLSearchParams(location.search);
+    const lat = parseFloat(params.get("lat") || "");
+    const lng = parseFloat(params.get("lng") || "");
+
+    if (!isNaN(lat) && !isNaN(lng)) {
+      setViewport({ ...viewport, latitude: lat, longitude: lng, zoom: 14 });
+    }
+  }, [location.search]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="min-h-screen  z-50 relative">
-      <h1 className="text-3xl text-center ">
+    <div className="min-h-screen z-50 relative">
+      <h1 className="text-3xl text-center my-6">
         Select the Parking Place you want to Book
       </h1>
 
-      <Link to="/parking/add">
-        <ShimmerButton className="shadow-2xl mx-auto my-3">
-          <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
-            Add Parking
-          </span>
-        </ShimmerButton>
-      </Link>
+      <SearchForm onPlaceSelect={handlePlaceSelect} />
 
       <ReactMapGL
         {...viewport}
@@ -102,26 +100,32 @@ export default function MapExample() {
         <NavigationControl position="top-left" />
         <ScaleControl />
 
-        {parkings.map((parking) => {
-          // {console.log(parking.owner_id)}
-          return (
-            <CustomMarker
-              parking={parking}
-              setPopupInfo={setPopupInfo}
-              zoom={viewport.zoom}
-            />
-          );
-        })}
+        {parkings.map((parking) => (
+          <CustomMarker
+            key={parking._id}
+            parking={parking}
+            setPopupInfo={setPopupInfo}
+            zoom={viewport.zoom}
+          />
+        ))}
 
         {popupInfo && (
           <CustomPopup
-            latitude={popupInfo.location_coordinates["lat"]}
-            longitude={popupInfo.location_coordinates["lng"]}
+            latitude={popupInfo.location_coordinates.lat}
+            longitude={popupInfo.location_coordinates.lng}
             setPopupInfo={setPopupInfo}
             popupInfo={popupInfo}
           />
         )}
       </ReactMapGL>
+
+      <Link to="/parkings/add">
+        <ShimmerButton className="shadow-2xl mx-auto my-10">
+          <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
+            Want to add your parking space? Click here
+          </span>
+        </ShimmerButton>
+      </Link>
     </div>
   );
 }
