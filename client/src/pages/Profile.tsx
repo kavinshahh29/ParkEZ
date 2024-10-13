@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import { Button } from "../components/ui/button";
 import { useLogout } from "../hooks/useLogut";

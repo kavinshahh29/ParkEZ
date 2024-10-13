@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import DateTimePicker from "../ui/DateTimePicker";
 import useApi from "../../hooks/useApi";
 import toast from "react-hot-toast";

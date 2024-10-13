@@ -1,6 +1,6 @@
 import { Marker } from "react-map-gl";
 
-export default function CustomMarker({ parking, setPopupInfo, zoom }: any) {
+export default function CustomMarker({ parking, setPopupInfo  }: any) {
   
   // const size = Math.max(100, zoom * 2);
   // console.log(zoom)

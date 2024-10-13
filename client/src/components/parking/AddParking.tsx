@@ -55,7 +55,7 @@ export default function AddParking() {
   });
 
   const handleFormChange = (e: any) => {
-    const { name, value, files } = e.target;
+    const { name , files } = e.target;
     if (name === "image" && files && files.length > 0) {
       const file = files[0];
       setParkingForm({ ...parkingForm, photo_URL: URL.createObjectURL(file) });
