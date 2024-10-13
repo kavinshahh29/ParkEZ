@@ -46,7 +46,7 @@ export default function MapExample() {
 
   const fetchParkings = async () => {
     try {
-      const parkings = await get("http://localhost:3000/api/v1/parkings");
+      const parkings = await get("https://parkez.onrender.com/api/v1/parkings/api/v1/parkings");
       setParking(parkings.parkings);
     } catch (err) {
       console.error(err);
