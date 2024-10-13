@@ -11,9 +11,9 @@ import ReactMapGL, {
 // import CustomPopup from "./CustomPopup";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "../ui/button";
 import ShimmerButton from "../magicui/shimmer-button";
-import { Cookie } from "lucide-react";
+import CustomMarker from "./CustomMarker";
+import CustomPopup from "./CustomPopup";
 // import Map from "react-map-gl";
 
 const TOKEN = import.meta.env.VITE_MAPBOX_KEY;
@@ -24,7 +24,7 @@ type TPakring = {
   location_type: "Public" | "Residential" | "Commercial";
   location_coordinates: {
     lat: number;
-    log: number;
+    lng: number;
   };
   photo_URL: string;
   video_URL: string;
@@ -44,16 +44,20 @@ export default function MapExample() {
   const [parkings, setParking] = useState<TPakring[]>([]);
 
   const fetchParkings = async () => {
-    let token = document.cookie.split("=")[1];
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("jwtToken="))
+      ?.split("=")[1];
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/parkings" , {
-       withCredentials: true,
-       headers: {
-          Authorization : `Bearer ${token}`,
+      const res = await axios.get("http://localhost:3000/api/v1/parkings", {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-
       });
-      setParking(res.data.parkings);
+      // console.log(res.data.data);
+      setParking(res.data.data);
+      // console.log(parkings);
     } catch (err) {
       console.log(err);
     }
@@ -71,7 +75,7 @@ export default function MapExample() {
   }, []);
 
   return (
-    <div className="min-h-screen  z-50 ">
+    <div className="min-h-screen  z-50 relative">
       <h1 className="text-3xl text-center ">
         Select the Parking Place you want to Book
       </h1>
@@ -97,9 +101,9 @@ export default function MapExample() {
         <FullscreenControl position="top-left" />
         <NavigationControl position="top-left" />
         <ScaleControl />
-{/* 
+
         {parkings.map((parking) => {
-          // {console.log(parking.owner_id?.fullName)}
+          // {console.log(parking.owner_id)}
           return (
             <CustomMarker
               parking={parking}
@@ -107,16 +111,16 @@ export default function MapExample() {
               zoom={viewport.zoom}
             />
           );
-        })} */}
+        })}
 
-        {/* {popupInfo && (
+        {popupInfo && (
           <CustomPopup
             latitude={popupInfo.location_coordinates["lat"]}
-            longitude={popupInfo.location_coordinates["log"]}
+            longitude={popupInfo.location_coordinates["lng"]}
             setPopupInfo={setPopupInfo}
             popupInfo={popupInfo}
           />
-        )} */}
+        )}
       </ReactMapGL>
     </div>
   );

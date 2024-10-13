@@ -1,32 +1,48 @@
 const Parking = require("../models/Parking.js");
+const User = require("../models/user");
 
-exports.getAllParking = async (req, res) => {
-  try {
-    const parkings = await Parking.find();
-    return res.status(200).json({
-      success: true,
-      data: parkings,
-    });
-  } catch (err) {
+exports.getAllParking = async (req,res) =>{
+    try{
+        const parkings = await Parking.find().populate("owner_id");
+        return res.status(200).json({
+            success : true,
+            data : parkings
+        })
+    }
+    catch(err){
+        return res.status(500).json({
+            success : false,
+            message : err.message
+        })
+    }
+}
+
+exports.getParking  = async (req,res) =>{
+   try{
+      const parkingId = req.params.id ;
+
+      const parking = await Parking.findById(parkingId).populate("owner_id");
+
+      // console.log(parking); 
+
+      return res.status(200).json({
+        success:true,
+        parking : parking 
+      });
+   }
+   catch(err){
     return res.status(500).json({
-      success: false,
-      message: err.message,
-    });
-  }
-};
+      success:false ,
+      message : err.message
+    })
+   }
+}
+
 exports.addParking = async (req, res) => {
   try {
-    const {
-      address,
-      location_coordinates,
-      photo_URL,
-      video_URL,
-      owner_id,
-      description,
-    } = req.body;
-
-    console.log("Request Body: ", req.body);
-
+    const { address, location_coordinates , photo_URL, video_URL, owner_id, description } =
+      req.body;
+    console.log(address , location_coordinates , owner_id , photo_URL , video_URL , description);
     let parking = await Parking.findOne({ location_coordinates });
 
     if (parking) {
@@ -36,24 +52,38 @@ exports.addParking = async (req, res) => {
       });
     }
 
-    parking = await Parking.create({
+    const owner = await User.findOne({
+      uid : owner_id 
+    })
+    // console.log(owner)
+
+    parking = new Parking({
       address,
       location_coordinates,
       photo_URL,
       video_URL,
-      owner_id,
+      owner_id : owner._id,
       description,
     });
 
+    // parking = await Parking.create({
+    //   address,
+    //   location_coordinates,
+    //   photo_URL,
+    //   video_URL,
+    //   owner_id,
+    //   description,
+    // });
+
     await parking.save();
 
-    return res.status(200).json({
+    return res.status(201).json({
       success: true,
       message: "Parking added successfully",
       data: parking,
     });
+
   } catch (err) {
-    console.error("Error adding parking: ", err);
     return res.status(500).json({
       success: false,
       message: err.message,
@@ -61,10 +91,11 @@ exports.addParking = async (req, res) => {
   }
 };
 
-exports.removeParking = async (req, res) => {
+exports.removeParking = async (req, res ) => {
   try {
     const _id = req.params.id;
-    console.log(_id);
+    console.log(_id)
+    
 
     let parking = await Parking.findById(_id);
 

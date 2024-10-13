@@ -29,6 +29,7 @@
     "mapbox-gl": "^3.6.0",
     "mini-svg-data-uri": "^1.4.4",
     "react": "^18.3.1",
+    "react-datetime-picker": "^6.0.1",
     "react-dom": "^18.3.1",
     "react-element-to-jsx-string": "^15.0.0",
     "react-map-gl": "^7.1.7",

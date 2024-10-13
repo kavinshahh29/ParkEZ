@@ -9,9 +9,10 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/config";
 import axios from "axios";
-import MapExample from "./components/map/Map";
-import AddParking from "./components/map/AddParking";
-import Profile from "./pages/Profile";
+import MapExample from "./components/parking/Map"
+import AddParking from "./components/parking/AddParking";
+import NewsTicker from "./components/NewsTicker";
+import ParkingDetails from "./pages/Parking/ParkingDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,13 +58,11 @@ function App() {
         auth.currentUser
           ?.getIdToken(/* forceRefresh */ true)
           .then(function (idToken) {
-            console.log("user token, ", idToken);
-            document.cookie = `jwtToken=${idToken}; path=/`;
+            console.log("user token, " , idToken);
+            document.cookie = `jwtToken=${idToken}; path=/; max-age=3600; Secure; SameSite=Strict`;
           });
 
-        // console.log(userData);
       }
-      //   console.log(user);
     });
 
     return unscribe;
@@ -76,29 +75,33 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/authentication" element={<Login />} />
         <Route path="/parkings" element={<MapExample />} />
-        <Route path="parking/add" element={<AddParking />} />
-        <Route path="user/profile" element={<Profile />} />
-        <Route path="*" element={<Home />} />
+        <Route path="parkings/add" element={<AddParking/>} />
+        <Route path="parkings/:id" element={<ParkingDetails/>} />
+        <Route path="*" element={<Home/>} />
+
       </Routes>
     );
-  } else {
+  }
+  else{
     routes = (
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/authentication" element={<Login />} />
-        <Route path="*" element={<Login />} />
+        <Route path="*" element={<Login/>} />
       </Routes>
-    );
+    )
   }
 
   return (
     <div className=" font-primary ">
       <Router>
+        <NewsTicker/>
         <Navbar />
 
         {/* <Toaster/> */}
         <div className="flex min-h-screen flex-col items-center mt-10">
-          {routes}
+        {routes}
+
         </div>
         <Footer />
       </Router>

@@ -67,3 +67,49 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  @keyframes scroll {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-scroll {
+    display: inline-block;
+    animation: scroll 20s linear infinite;
+    white-space: nowrap;
+  }
+}
+
+.custom-popup {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  left: 50%; /* Position it horizontally */
+  top: 50%; /* Position it vertically */
+}
+
+.mapboxgl-popup-content{
+  background : #111;
+}
+
+.mapboxgl-popup{
+  width: 600px;
+}
+
+.dark-picker .react-datetime-picker__wrapper {
+  background-color: #333;
+  color: #fff;
+  border-color: #444;
+}
+
+.dark-picker input {
+  color: #fff;
+}
+
+.dark-picker .react-datetime-picker__button svg {
+  stroke: #fff;
+}

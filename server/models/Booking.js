@@ -1,23 +1,3 @@
-/*
-Booking Collection 
-{
-   _id:"ObjectId", // booking id
-   "user_id":"ObjectId" (referncing user),
-   "parking_id":"ObjectId (referncing Parking),
-   "arrival_time":dateTime,
-   "exit_time":dateTime,
-   "status":[],// Success,Cancelled,Accepted,Failure
-   "payment_status":
-
-
-
-}
-
-
-
-
-*/
-
 const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema({
@@ -49,9 +29,18 @@ const bookingSchema = new mongoose.Schema({
     enum: ["Pending", "Paid", "Failed"],
     default: "Pending",
   },
-  removed: {
-    type: Boolean,
-    default: false, // False means the booking is active
+  vehicle_details: {
+    type: {
+      vehicle_no: {
+        type: String,
+        required: true,
+      },
+      vehicle_type: {
+        type: String,
+        required: true,
+      },
+    },
+    required: true,
   },
 });
 
