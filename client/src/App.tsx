@@ -22,7 +22,7 @@ function App() {
     console.log(userData);
     try {
       const res = await axios.post(
-        "https://parkez.onrender.com/api/v1/parkings/api/v1/register",
+        "https://parkez.onrender.com//api/v1/register",
         userData
       );
       console.log(res);

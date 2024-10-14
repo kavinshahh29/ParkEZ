@@ -38,7 +38,7 @@ export default function ParkingDetails() {
           ?.split("=")[1];
 
         const res = await axios.get(
-          `https://parkez.onrender.com/api/v1/parkings/api/v1/parkings/${id}`,
+          `https://parkez.onrender.com//api/v1/parkings/${id}`,
           {
             withCredentials: true,
             headers: {

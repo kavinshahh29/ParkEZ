@@ -13,7 +13,7 @@ const bookingRouter = require("./routes/Booking");
 
 
 const corsConfig = {
-  origin: process.env.CLIENT_URL,
+  origin: "https://parkezz.vercel.app",
   credentials: true,
 };
 

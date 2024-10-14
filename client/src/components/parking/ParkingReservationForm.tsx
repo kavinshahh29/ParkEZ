@@ -40,7 +40,7 @@ const ParkingReservationForm: React.FC<ParkingReservationFormProps> = ({
   const handleBooking = async () => {
    
     toast.promise(
-      post("https://parkez.onrender.com/api/v1/parkings/api/v1/booking", bookingForm),
+      post("https://parkez.onrender.com//api/v1/booking", bookingForm),
       {
         loading: 'Booking in progress...',
         success: <b>Booking successful!</b>,

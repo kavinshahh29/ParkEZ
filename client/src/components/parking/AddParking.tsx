@@ -82,7 +82,7 @@ export default function AddParking() {
       ?.split("=")[1];
       // console.log(token);
       const response = await axios.post(
-        "https://parkez.onrender.com/api/v1/parkings/api/v1/addParking",
+        "https://parkez.onrender.com//api/v1/addParking",
         {
           address: parkingForm.address,
           location_coordinates: parkingForm.location_coordinates,
