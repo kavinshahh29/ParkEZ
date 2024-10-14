@@ -100,7 +100,7 @@ export default function MapExample() {
         <NavigationControl position="top-left" />
         <ScaleControl />
 
-        {parkings.map((parking) => (
+        {parkings?.map((parking) => (
           <CustomMarker
             key={parking._id}
             parking={parking}

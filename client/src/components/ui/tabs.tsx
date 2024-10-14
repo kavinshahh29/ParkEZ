@@ -44,7 +44,7 @@ export const Tabs = ({
           containerClassName
         )}
       >
-        {propTabs.map((tab, idx) => (
+        {propTabs?.map((tab, idx) => (
           <button
             key={tab.title}
             onClick={() => {
@@ -101,7 +101,7 @@ export const FadeInDiv = ({
   };
   return (
     <div className="relative w-full h-full">
-      {tabs.map((tab, idx) => (
+      {tabs?.map((tab, idx) => (
         <motion.div
           key={tab.value}
           layoutId={tab.value}

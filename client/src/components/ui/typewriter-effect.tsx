@@ -17,7 +17,7 @@ export const TypewriterEffect = ({
   cursorClassName?: string;
 }) => {
   // split text inside of words into array of characters
-  const wordsArray = words.map((word) => {
+  const wordsArray = words?.map((word) => {
     return {
       ...word,
       text: word.text.split(""),

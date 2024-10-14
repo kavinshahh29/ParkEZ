@@ -58,7 +58,7 @@ export default function SearchForm({ onPlaceSelect }: any) {
       />
       {suggestions.length > 0 && (
         <ul className="text-black border border-gray-300 rounded-md mt-1 max-h-60  overflow-auto">
-          {suggestions.map((suggestion, index) =>
+          {suggestions?.map((suggestion, index) =>
            (
             
             <li

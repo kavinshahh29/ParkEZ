@@ -284,7 +284,7 @@ export function PlaceholdersAndVanishInput({
 
       {suggestions.length > 0 && (
         <div className="absolute top-12 w-full bg-white rounded-lg shadow-md z-50 overflow-hidden text-black text-sm">
-          {suggestions.map((suggestion, index) => (
+          {suggestions?.map((suggestion, index) => (
             // console.log(suggestion),
             <div
               key={index}
