@@ -22,6 +22,13 @@ ParkEz addresses the common challenge of finding available parking spaces in urb
 ## Screenshots
 
 
+<img src="./assets/1.png" alt="1" width="700"/>
+
+<img src="./assets/2.png" alt="2" width="700"/>
+
+<img src="./assets/3.png" alt="3" width="700"/>
+
+
 ## Installation
 
 ### Prerequisites
