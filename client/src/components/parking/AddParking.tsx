@@ -13,6 +13,8 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import SearchForm from "./SearchForm";
+import toast from "react-hot-toast";
 // import CustomMarker from "./CustomMarker";
 
 type TPakring = {
@@ -48,7 +50,7 @@ export default function AddParking() {
       lat: 0,
       log: 0,
     },
-    photo_URL: "/default.png",
+    photo_URL: "https://i.pinimg.com/550x/4f/28/db/4f28dbc52164e7b92872241d9dd808bb.jpg",
     video_URL: "/default.mp3",
     owner_id: "",
     description: "",
@@ -100,19 +102,27 @@ export default function AddParking() {
       );
 
       if (response.status === 200) {
-        alert("Parking added successfully!");
+        // alert("Parking added successfully!");
+        toast.success("Parking added successfully!");
         console.log(response.data);
       }
     } catch (error) {
       console.error("Error adding parking:", error);
-      alert("Failed to add parking.");
+      toast.error("Failed to add parking.");
+      // alert("Failed to add parking.");
     }
   };
+
+  const handlePlaceSelect = ({ latitude, longitude }: any) => {
+    setViewport({ ...viewport, latitude, longitude, zoom: 14 });
+  };
+
 
   return (
     <div className="min-h-screen  z-50 ">
       <h1 className="text-3xl text-center m-3">Add New Parking</h1>
 
+      <SearchForm onPlaceSelect={handlePlaceSelect} />
       <MapComponent
         viewport={viewport}
         setViewport={setViewport}
