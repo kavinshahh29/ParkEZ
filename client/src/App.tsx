@@ -9,11 +9,13 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/config";
 import axios from "axios";
-import MapExample from "./components/parking/Map"
+import MapExample from "./components/parking/Map";
 import AddParking from "./components/parking/AddParking";
 import NewsTicker from "./components/NewsTicker";
 import ParkingDetails from "./pages/Parking/ParkingDetails";
 import { Toaster } from "react-hot-toast";
+import Profile from "./pages/Profile";
+import BookingHistory from "./pages/BookingHistory";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,7 +24,8 @@ function App() {
     console.log(userData);
     try {
       const res = await axios.post(
-        "https://parkez.onrender.com/api/v1/register",
+        // "http://localhost:3000/api/v1/register",
+        "http://localhost:3000",
         userData
       );
       console.log(res);
@@ -59,10 +62,9 @@ function App() {
         auth.currentUser
           ?.getIdToken(/* forceRefresh */ true)
           .then(function (idToken) {
-            console.log("user token, " , idToken);
+            console.log("user token, ", idToken);
             document.cookie = `jwtToken=${idToken}; path=/; max-age=3600; Secure; SameSite=Strict`;
           });
-
       }
     });
 
@@ -70,40 +72,43 @@ function App() {
   }, []);
 
   let routes;
+  console.log("Printing user in app", user);
   if (user) {
     routes = (
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/authentication" element={<Login />} />
         <Route path="/parkings" element={<MapExample />} />
-        <Route path="parkings/add" element={<AddParking/>} />
-        <Route path="parkings/:id" element={<ParkingDetails/>} />
-        <Route path="*" element={<Home/>} />
-
+        <Route path="parkings/add" element={<AddParking />} />
+        <Route path="parkings/:id" element={<ParkingDetails />} />
+        <Route path="/user/profile" element={<Profile></Profile>} />
+        <Route
+          path="/BookingHistory"
+          element={<BookingHistory curuser={user}></BookingHistory>}
+        />
+        <Route path="*" element={<Home />} />
       </Routes>
     );
-  }
-  else{
+  } else {
     routes = (
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/authentication" element={<Login />} />
-        <Route path="*" element={<Login/>} />
+        <Route path="*" element={<Login />} />
       </Routes>
-    )
+    );
   }
 
   return (
     <div className=" font-primary ">
-      <Toaster/>
+      <Toaster />
       <Router>
-        <NewsTicker/>
+        <NewsTicker />
         <Navbar />
 
         {/* <Toaster/> */}
         <div className="flex min-h-screen flex-col items-center mt-10">
-        {routes}
-
+          {routes}
         </div>
         <Footer />
       </Router>

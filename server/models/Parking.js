@@ -5,7 +5,7 @@ const parkingSchema = new mongoose.Schema({
   location_type: String,
   location_coordinates: {
     lat: Number,
-    log: Number,
+    lng: Number,
   },
   photo_URL: String,
   video_URL: String,

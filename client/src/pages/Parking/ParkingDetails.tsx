@@ -38,7 +38,7 @@ export default function ParkingDetails() {
           ?.split("=")[1];
 
         const res = await axios.get(
-          `https://parkez.onrender.com/api/v1/parkings/${id}`,
+          `http://localhost:3000/api/v1/parkings/${id}`,
           {
             withCredentials: true,
             headers: {
@@ -63,14 +63,12 @@ export default function ParkingDetails() {
 
   return (
     <div className="h-full py-10  px-10 border-2 rounded-lg shadow-md">
-    
-        <button
-          onClick={() => navigate("/parkings")}
-          className="bg-blue-500 text-white px-4 py-2 rounded-md"
-        >
-          Go Back
-        </button>
-        
+      <button
+        onClick={() => navigate("/parkings")}
+        className="bg-blue-500 text-white px-4 py-2 rounded-md"
+      >
+        Go Back
+      </button>
 
       <div className="max-w-4xl mx-autoshadow-md rounded-lg p-6">
         <div className="flex flex-col md:flex-row">

@@ -1,7 +1,6 @@
 import { Marker } from "react-map-gl";
 
-export default function CustomMarker({ parking, setPopupInfo  }: any) {
-  
+export default function CustomMarker({ parking, setPopupInfo }: any) {
   // const size = Math.max(100, zoom * 2);
   // console.log(zoom)
 
@@ -11,7 +10,6 @@ export default function CustomMarker({ parking, setPopupInfo  }: any) {
       latitude={parking.location_coordinates["lat"]}
       anchor="bottom"
       onClick={() => setPopupInfo(parking)}
-      
     >
       {/* <img
         src="/images/pointer.png" 

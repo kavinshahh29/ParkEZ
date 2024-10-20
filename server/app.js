@@ -10,10 +10,9 @@ const userRouter = require("./routes/User");
 const ParkingRouter = require("./routes/Parking");
 const bookingRouter = require("./routes/Booking");
 
-
-
 const corsConfig = {
-  origin: "https://parkezz.vercel.app",
+  // origin: "https://parkezz.vercel.app",
+  origin: "http://localhost:5173",
   credentials: true,
 };
 
@@ -25,7 +24,7 @@ app.use("/api/v1", userRouter);
 
 app.use("/api/v1", ParkingRouter);
 
-app.use("/api/v1" , bookingRouter) ;
+app.use("/api/v1", bookingRouter);
 
 app.use("/", (req, res) => {
   res

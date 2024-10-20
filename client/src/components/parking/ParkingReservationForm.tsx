@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import DateTimePicker from "../ui/DateTimePicker";
 import useApi from "../../hooks/useApi";
 import toast from "react-hot-toast";
-// import DateTimePicker from "react-datetime-picker"; 
-
+// import DateTimePicker from "react-datetime-picker";
 
 type ParkingReservationFormProps = {
   parkingId: string;
@@ -17,15 +16,13 @@ type ParkingBooking = {
   exit_time: any;
   vehicle_number: string;
   vehicle_type: string;
-
 };
 
 const ParkingReservationForm: React.FC<ParkingReservationFormProps> = ({
   parkingId,
   userId,
 }) => {
- 
-  const { loading , post } = useApi();
+  const { loading, post } = useApi();
 
   const [bookingForm, setBookingForm] = useState<ParkingBooking>({
     user_id: userId._id,
@@ -34,21 +31,18 @@ const ParkingReservationForm: React.FC<ParkingReservationFormProps> = ({
     exit_time: new Date(new Date().setDate(new Date().getDate() + 1)),
     vehicle_number: "",
     vehicle_type: "car",
-
   });
 
   const handleBooking = async () => {
-   
-    toast.promise(
-      post("https://parkez.onrender.com/api/v1/booking", bookingForm),
-      {
-        loading: 'Booking in progress...',
-        success: <b>Booking successful!</b>,
-        error: <b>
-            Falied to book parking slot. Parking slot might be already booked.
-        </b>,
-      }
-    );
+    toast.promise(post("http://localhost:3000/api/v1/booking", bookingForm), {
+      loading: "Booking in progress...",
+      success: <b>Booking successful!</b>,
+      error: (
+        <b>
+          Falied to book parking slot. Parking slot might be already booked.
+        </b>
+      ),
+    });
   };
 
   const onChange = (value: any, name: string) => {
@@ -63,51 +57,46 @@ const ParkingReservationForm: React.FC<ParkingReservationFormProps> = ({
       <h2 className="text-lg font-bold mb-4">Book Parking Slot</h2>
 
       <div className="mb-4">
-       
         <DateTimePicker
           onChange={(value) => onChange(value, "arrival_time")}
           selectedDateTime={bookingForm.arrival_time}
           label="Arrival Time"
-          
         />
       </div>
 
       <div className="mb-4">
-       
         <DateTimePicker
           onChange={(value) => onChange(value, "exit_time")}
           selectedDateTime={bookingForm.exit_time}
           label="Exit Time"
-          
         />
       </div>
 
-        <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">Vehicle Number</label>
-            <input
-            type="text"
-            className="border-gray-300 border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            placeholder="Enter Vehicle Number"
-            onChange={(e) => {onChange(e.target.value, "vehicle_number")
-                // console.log(bookingForm.vehicle_number);
-            }}
-            />
-        </div>
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-2">Vehicle Number</label>
+        <input
+          type="text"
+          className="border-gray-300 border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          placeholder="Enter Vehicle Number"
+          onChange={(e) => {
+            onChange(e.target.value, "vehicle_number");
+            // console.log(bookingForm.vehicle_number);
+          }}
+        />
+      </div>
 
-       
-
-        <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">Vehicle Type</label>
-            <select
-                className="border-gray-300 border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                onChange={(e) => onChange(e.target.value, "vehicle_type")}
-            >
-                <option value="car">Car</option>
-                <option value="bike">Bike</option>
-                <option value="scooter">Scooter</option>
-                <option value="truck">Truck</option>
-            </select>
-        </div>
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-2">Vehicle Type</label>
+        <select
+          className="border-gray-300 border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          onChange={(e) => onChange(e.target.value, "vehicle_type")}
+        >
+          <option value="car">Car</option>
+          <option value="bike">Bike</option>
+          <option value="scooter">Scooter</option>
+          <option value="truck">Truck</option>
+        </select>
+      </div>
       <button
         onClick={handleBooking}
         disabled={loading}

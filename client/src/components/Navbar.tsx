@@ -7,7 +7,6 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-
   navigationMenuTriggerStyle,
 } from "./ui/navigation-menu";
 import { Link } from "react-router-dom";
@@ -15,11 +14,8 @@ import ProfileMenu from "./ProfileMenu";
 import { useSelector } from "react-redux";
 import { ModeToggle } from "../reducers/theme-toggle";
 
-
 export function Navbar() {
-
   const { user } = useSelector((state: any) => state.user);
-
 
   return (
     <div className="border-b p-2 shadow-md flex justify-around items-center z-50">
@@ -42,12 +38,7 @@ export function Navbar() {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <ListItem
-              key="home"
-              title="Home"
-              href="/"
-              className={""}
-            />
+            <ListItem key="home" title="Home" href="/" className={""} />
           </NavigationMenuItem>
           <NavigationMenuItem>
             <ListItem

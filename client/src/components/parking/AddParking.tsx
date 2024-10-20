@@ -15,6 +15,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import SearchForm from "./SearchForm";
 import toast from "react-hot-toast";
+import Home from "../../pages/Home";
+import { useNavigate } from "react-router-dom";
 // import CustomMarker from "./CustomMarker";
 
 type TPakring = {
@@ -22,7 +24,7 @@ type TPakring = {
   location_type: "Public" | "Residential" | "Commercial";
   location_coordinates: {
     lat: number;
-    log: number;
+    lng: number;
   };
   photo_URL: string;
   video_URL: string;
@@ -32,6 +34,7 @@ type TPakring = {
 
 const TOKEN = import.meta.env.VITE_MAPBOX_KEY;
 export default function AddParking() {
+  const navigate = useNavigate();
   const [markerPosition, setMarkerPosition] = useState<{
     lat: number;
     lng: number;
@@ -48,16 +51,17 @@ export default function AddParking() {
     location_type: "Public",
     location_coordinates: {
       lat: 0,
-      log: 0,
+      lng: 0,
     },
-    photo_URL: "https://i.pinimg.com/550x/4f/28/db/4f28dbc52164e7b92872241d9dd808bb.jpg",
+    photo_URL:
+      "https://i.pinimg.com/550x/4f/28/db/4f28dbc52164e7b92872241d9dd808bb.jpg",
     video_URL: "/default.mp3",
     owner_id: "",
     description: "",
   });
 
   const handleFormChange = (e: any) => {
-    const { name , files } = e.target;
+    const { name, files } = e.target;
     if (name === "image" && files && files.length > 0) {
       const file = files[0];
       setParkingForm({ ...parkingForm, photo_URL: URL.createObjectURL(file) });
@@ -73,24 +77,23 @@ export default function AddParking() {
   const handleFormSubmit = async (e: any) => {
     e.preventDefault();
 
-  
     console.log(parkingForm);
     console.log(user);
 
     try {
       const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("jwtToken="))
-      ?.split("=")[1];
+        .split("; ")
+        .find((row) => row.startsWith("jwtToken="))
+        ?.split("=")[1];
       // console.log(token);
       const response = await axios.post(
-        "https://parkez.onrender.com/api/v1/addParking",
+        "http://localhost:3000/api/v1/addParking",
         {
           address: parkingForm.address,
           location_coordinates: parkingForm.location_coordinates,
           photo_URL: parkingForm.photo_URL,
           video_URL: parkingForm.video_URL,
-          owner_id: user.uid, 
+          owner_id: user.uid,
           description: parkingForm.description,
         },
         {
@@ -101,10 +104,14 @@ export default function AddParking() {
         }
       );
 
+      console.log(response.status);
+
       if (response.status === 200) {
         // alert("Parking added successfully!");
         toast.success("Parking added successfully!");
         console.log(response.data);
+
+        navigate("/home");
       }
     } catch (error) {
       console.error("Error adding parking:", error);
@@ -116,7 +123,6 @@ export default function AddParking() {
   const handlePlaceSelect = ({ latitude, longitude }: any) => {
     setViewport({ ...viewport, latitude, longitude, zoom: 14 });
   };
-
 
   return (
     <div className="min-h-screen  z-50 ">
@@ -130,7 +136,6 @@ export default function AddParking() {
         parkingForm={parkingForm}
         markerPosition={markerPosition}
         setMarkerPosition={setMarkerPosition}
-       
       />
 
       <form
@@ -196,15 +201,15 @@ function MapComponent({
   setViewport,
   setParkingForm,
   parkingForm,
-  setMarkerPosition ,
-  markerPosition
+  setMarkerPosition,
+  markerPosition,
 }: {
   viewport: any;
   setViewport: any;
   setParkingForm: any;
   parkingForm: any;
-  setMarkerPosition : any ,
-  markerPosition : any
+  setMarkerPosition: any;
+  markerPosition: any;
 }) {
   return (
     <div className="h-full">
@@ -219,11 +224,9 @@ function MapComponent({
         onClick={(e) => {
           const lat = e.lngLat.lat;
           const lng = e.lngLat.lng;
-          
-         
+
           setMarkerPosition({ lat, lng });
 
-        
           setParkingForm({
             ...parkingForm,
             location_coordinates: {
