@@ -30,6 +30,7 @@ type TPakring = {
   video_URL: string;
   owner_id: any;
   description: string;
+  parking_charge: number;
 };
 
 const TOKEN = import.meta.env.VITE_MAPBOX_KEY;
@@ -58,6 +59,7 @@ export default function AddParking() {
     video_URL: "/default.mp3",
     owner_id: "",
     description: "",
+    parking_charge: 0,
   });
 
   const handleFormChange = (e: any) => {
@@ -95,6 +97,7 @@ export default function AddParking() {
           video_URL: parkingForm.video_URL,
           owner_id: user.uid,
           description: parkingForm.description,
+          parking_charge: parkingForm.parking_charge,
         },
         {
           withCredentials: true,
@@ -172,6 +175,15 @@ export default function AddParking() {
           <Input
             value={parkingForm?.description}
             name="description"
+            onChange={handleFormChange}
+          ></Input>
+        </div>
+
+        <div>
+          <Label htmlFor="payment_charge">Payment Charge</Label>
+          <Input
+            value={parkingForm?.parking_charge}
+            name="parking_charge"
             onChange={handleFormChange}
           ></Input>
         </div>

@@ -9,6 +9,7 @@ dotenv.config({ path: "./.env" });
 const userRouter = require("./routes/User");
 const ParkingRouter = require("./routes/Parking");
 const bookingRouter = require("./routes/Booking");
+const PaymentRouter = require("./routes/Payment");
 
 const corsConfig = {
   // origin: "https://parkezz.vercel.app",
@@ -25,6 +26,8 @@ app.use("/api/v1", userRouter);
 app.use("/api/v1", ParkingRouter);
 
 app.use("/api/v1", bookingRouter);
+
+app.use("/api/v1", PaymentRouter);
 
 app.use("/", (req, res) => {
   res

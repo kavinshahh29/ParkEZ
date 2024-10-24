@@ -16,6 +16,7 @@ type CustomPopupProps = {
     photo_URL: string;
     description: string;
     owner_id: any;
+    parking_charge: number;
   };
 };
 
@@ -25,7 +26,6 @@ export default function CustomPopup({
   setPopupInfo,
   popupInfo,
 }: CustomPopupProps) {
-
   const navigate = useNavigate();
 
   const handleClickMoreInfo = () => {
@@ -40,7 +40,6 @@ export default function CustomPopup({
       // offsetTop={-10}
       offset={-10}
       maxWidth="500px"
-
       className="bg-[#111] shadow-lg rounded-lg p-4 z-50 "
       anchor="bottom-left"
     >
@@ -59,11 +58,24 @@ export default function CustomPopup({
         )}
 
         <div className="mt-3 flex  space-x-2 justify-left items-center">
-        <img src={popupInfo.owner_id.photoURL} alt="" className="w-10 h-10 rounded-full" />
-        <p className="text-sm"><span className="text-gray-300">Owner Name :</span> {popupInfo.owner_id.fullName}</p>
-        {/* <p className="text-sm">Name : {popupInfo.owner_id.email}</p> */}
+          <img
+            src={popupInfo.owner_id.photoURL}
+            alt=""
+            className="w-10 h-10 rounded-full"
+          />
+          <p className="text-sm">
+            <span className="text-gray-300">Owner Name :</span>{" "}
+            {popupInfo.owner_id.fullName}
+          </p>
+          {/* <p className="text-sm">Name : {popupInfo.owner_id.email}</p> */}
+        </div>
 
-
+        <div className="mt-3 flex  space-x-2 justify-left items-center">
+          <p className="text-sm">
+            <span className="text-gray-300">Parking Charge :</span> ₹
+            {popupInfo.parking_charge}
+          </p>
+          {/* <p className="text-sm">Name : {popupInfo.owner_id.email}</p> */}
         </div>
 
         <button

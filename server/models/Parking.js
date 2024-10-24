@@ -18,6 +18,7 @@ const parkingSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  parking_charge: Number,
 });
 
 module.exports = mongoose.model("Parking", parkingSchema);

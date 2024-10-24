@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import SmallMap from "./SmallMap";
 import ParkingReservationForm from "../../components/parking/ParkingReservationForm";
+import { useSelector } from "react-redux";
 // import ParkingReservationForm from "../../components/parking/BookParking";
 
 type TPakringDetails = {
@@ -17,12 +18,14 @@ type TPakringDetails = {
   video_URL: string;
   owner_id: any;
   description: string;
+  parking_charge: number;
 };
 
 export default function ParkingDetails() {
   const { id } = useParams<{ id: string }>();
 
   const navigate = useNavigate();
+  const { user } = useSelector((state: any) => state.user);
 
   if (!id) {
     navigate("/");
@@ -47,6 +50,7 @@ export default function ParkingDetails() {
           }
         );
         setParking(res.data.parking);
+        // console.log(res.data.parking);
         console.log(parking);
       } catch (err) {
         console.log(err);
@@ -55,7 +59,7 @@ export default function ParkingDetails() {
     };
 
     fetchParkingDetails();
-  }, [id, navigate]);
+  }, []);
 
   if (!parking) {
     return <div>Loading...</div>;
@@ -109,6 +113,14 @@ export default function ParkingDetails() {
                   {parking.owner_id.email}
                 </p>
               </div>
+              <div>
+                <p className="text-lg font-semibold text-gray-800">
+                  Parking Charge:₹
+                </p>
+                <p className="text-sm font-medium text-gray-600">
+                  {parking.parking_charge}
+                </p>
+              </div>
             </div>
 
             {/* {parking.video_URL && (
@@ -132,10 +144,7 @@ export default function ParkingDetails() {
           />
         </div>
 
-        <ParkingReservationForm
-          parkingId={id as string}
-          userId={parking.owner_id}
-        />
+        <ParkingReservationForm parkingId={id as string} userId={user.uid} />
       </div>
     </div>
   );

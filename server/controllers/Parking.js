@@ -45,6 +45,7 @@ exports.addParking = async (req, res) => {
       video_URL,
       owner_id,
       description,
+      parking_charge,
     } = req.body;
     console.log(
       address,
@@ -52,7 +53,8 @@ exports.addParking = async (req, res) => {
       owner_id,
       photo_URL,
       video_URL,
-      description
+      description,
+      parking_charge
     );
     let parking = await Parking.findOne({ location_coordinates });
 
@@ -75,6 +77,7 @@ exports.addParking = async (req, res) => {
       video_URL,
       owner_id: owner._id,
       description,
+      parking_charge,
     });
 
     // parking = await Parking.create({
@@ -186,3 +189,25 @@ exports.updateParking = async (req, res) => {
     });
   }
 };
+
+// exports.getParkingCharge = async (req, res) => {
+//   try {
+//     const parkingId = req.params.parking_id;
+
+//     // Find the parking entry by its ID
+//     const parking = await Parking.findById(parkingId);
+
+//     if (!parking) {
+//       return res.status(404).json({ message: "Parking not found" });
+//     }
+//     console.log("parking id is", parkingId);
+
+//     console.log("Parking obj is", parking);
+
+//     // Return the parking_charge
+//     res.json({ parking_charge: parking.parking_charge });
+//   } catch (error) {
+//     console.error("Error fetching parking charge:", error);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };

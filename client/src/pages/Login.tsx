@@ -1,4 +1,3 @@
-
 import { useLogin } from "../hooks/useLogin";
 
 import { AuthTabs } from "../components/Auth/AuthTabs";
@@ -8,21 +7,18 @@ import { useNavigate } from "react-router-dom";
 // import {toast} from 'react-hot-toast'
 
 export default function Login() {
-  const { googleLogin , twitterLogin } = useLogin();
+  const { googleLogin, twitterLogin } = useLogin();
 
   const navigate = useNavigate();
-  const { user} = useSelector((state: any) => state.user);
+  const { user } = useSelector((state: any) => state.user);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     // console.log(user)
 
-    if(user){
+    if (user) {
       navigate("/");
     }
-    
-
-  },[user])
+  }, [user]);
 
   return (
     <div>
