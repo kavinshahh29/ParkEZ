@@ -16,6 +16,7 @@ import ParkingDetails from "./pages/Parking/ParkingDetails";
 import { Toaster } from "react-hot-toast";
 import Profile from "./pages/Profile";
 import BookingHistory from "./pages/BookingHistory";
+import MyParkings from "./pages/MyParkings";
 
 function App() {
   const dispatch = useDispatch();
@@ -86,6 +87,7 @@ function App() {
           path="/BookingHistory"
           element={<BookingHistory curuser={user}></BookingHistory>}
         />
+        <Route path="/myparkings" element={<MyParkings/>} />
         <Route path="*" element={<Home />} />
       </Routes>
     );

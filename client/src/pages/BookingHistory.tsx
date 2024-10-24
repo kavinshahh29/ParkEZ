@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const BookingHistory = ({ curuser }) => {
+const BookingHistory = ({ curuser } : any) => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,21 +17,21 @@ const BookingHistory = ({ curuser }) => {
           );
 
           if (response.data.length === 0) {
-            setError("No bookings found for this user.");
+            // setError("No bookings found for this user.");
             setLoading(false);
           } else {
             setBookings(response.data);
             setLoading(false);
           }
         } catch (err) {
-          setError("An error occurred while fetching bookings.");
+          // setError("An error occurred while fetching bookings.");
           setLoading(false);
         }
       };
 
       fetchBookings();
     } else {
-      setError("User ID not available");
+      // setError("User ID not available");
       setLoading(false);
     }
   }, [curuser]);
@@ -53,7 +53,7 @@ const BookingHistory = ({ curuser }) => {
           </tr>
         </thead>
         <tbody>
-          {bookings.map((booking) => (
+          {bookings.map((booking : any) => (
             <tr key={booking._id}>
               <td className="py-2 px-4 border-b">
                 {booking.parking_id?.address || "N/A"}

@@ -16,6 +16,36 @@ exports.getAllParking = async (req, res) => {
   }
 };
 
+
+exports.getUserParkings = async (req, res) => {
+  try{
+    const user_uid= req.params.id;
+
+
+    const user =  await User.findOne({uid: user_uid});
+
+    if(!user){
+      return res.status(404).json({
+        success: false,
+        message: "User not found"
+      });
+    }
+
+    const parkings = await Parking.find({owner_id: user._id}).populate("owner_id");
+
+    return res.status(200).json({
+      success: true,
+      parkings: parkings
+    });
+  }
+  catch(err){
+    return res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
+}
+
 exports.getParking = async (req, res) => {
   try {
     const parkingId = req.params.id;

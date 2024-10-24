@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Button } from "../components/ui/button";
 import { useLogout } from "../hooks/useLogut";
 import HyperText from "../components/ui/hyper-text";
+import { Link } from "react-router-dom";
 export default function Profile() {
   const { user } = useSelector((state: any) => state.user);
 
@@ -33,12 +34,21 @@ export default function Profile() {
         </div>
 
         <div className="flex items-center justify-center space-x-4">
-          <a
-            href="/BookingHistory"
+          <Link
+            to="/BookingHistory"
             className="rounded-xl bg-gray-400 p-2 text-gray-900"
           >
-            Your Bookings History
-          </a>
+            My Bookings
+          </Link>
+
+          <Link
+            to="/myparkings"
+            className="rounded-xl bg-gray-400 p-2 text-gray-900"
+          >
+            My Parkings
+          </Link>
+
+
           <Button
             onClick={logout}
             className="rounded-xl bg-red-400 p-2 text-gray-900"
