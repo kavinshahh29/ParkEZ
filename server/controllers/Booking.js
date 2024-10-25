@@ -1,6 +1,7 @@
 const Booking = require("../models/Booking.js");
 const User = require("../models/User.js");
 const mongoose = require("mongoose");
+const Parking = require("../models/Parking.js");
 
 exports.addBooking = async (req, res) => {
   try {
@@ -27,14 +28,14 @@ exports.addBooking = async (req, res) => {
       });
     }
 
-    console.log(
-      user_id,
-      parking_id,
-      arrival_time,
-      exit_time,
-      vehicle_number,
-      vehicle_type
-    );
+    // console.log(
+    //   user_id,
+    //   parking_id,
+    //   arrival_time,
+    //   exit_time,
+    //   vehicle_number,
+    //   vehicle_type
+    // );
 
     const finalUser = await User.findOne({ uid: user_id });
 
@@ -129,7 +130,7 @@ exports.removeBooking = async (req, res) => {
 exports.BookingHistory = async (req, res) => {
   try {
     const { userId } = req.params;
-    console.log("Fetching bookings for userId:", userId);
+    // console.log("Fetching bookings for userId:", userId);
 
     let user = await User.findOne({ uid: userId });
     if (!user) {
@@ -142,7 +143,7 @@ exports.BookingHistory = async (req, res) => {
       "parking_id"
     );
 
-    console.log(bookings);
+    // console.log(bookings);
 
     if (!bookings || bookings.length === 0) {
       return res
@@ -158,3 +159,65 @@ exports.BookingHistory = async (req, res) => {
       .json({ error: "An error occurred while fetching bookings." });
   }
 };
+
+
+exports.getOwnerBookings = async (req, res) => {
+  try {
+    const owner_user_id = req.params.id;
+    const owner = await User.findOne({ uid: owner_user_id });
+
+    if (!owner) {
+      return res.status(404).json({
+        success: false,
+        message: "Owner not found",
+      });
+    }
+
+    const owner_id = owner._id;
+
+    const owner_parkings = await Parking.find({ owner_id });
+
+    const owner_parking_ids = owner_parkings.map((parking) => parking._id);
+
+    const bookings = await Booking.find({
+      parking_id: { $in: owner_parking_ids },
+    }).populate("user_id");
+
+    return res.status(200).json({
+      success: true,
+      bookings: bookings,
+    });
+  }
+  catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+}
+
+
+exports.parkingBookings = async (req, res) => {
+  try {
+    const parkingId = req.params.parkingId;
+
+
+    const parking = await Parking.findById(parkingId);
+    const bookings = await Booking.find({ parking_id: parkingId }).populate(
+      "user_id"
+    );
+
+    return res.status(200).json({
+      success: true,
+      bookings: bookings,
+      parking: parking,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+}
+
+

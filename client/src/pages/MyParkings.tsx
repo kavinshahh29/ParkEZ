@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import useApi from "../hooks/useApi";
+import { Link } from "react-router-dom";
 
 export default function MyParkings() {
   const { user } = useSelector((state: any) => state.user);
@@ -34,6 +35,7 @@ export default function MyParkings() {
       <div className="flex justify-center items-center flex-col">
         
         {parkings?.map((parking: any) => (
+            <Link to={`/bookings/${parking._id}`}>
             <div className="border-2 m-10 mt-20 flex  items-center justify-center rounded-2xl bg-gray-200 p-14 shadow-sm min-w-2xl max-w-2xl text-black space-x-10">
 
                 <img src={parking.photo_URL} alt="" className="w-64 rounded-lg"/>
@@ -48,6 +50,7 @@ export default function MyParkings() {
 
                 </div>
             </div>
+            </Link>
             ))    
         
         }  

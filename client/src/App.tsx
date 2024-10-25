@@ -17,6 +17,7 @@ import { Toaster } from "react-hot-toast";
 import Profile from "./pages/Profile";
 import BookingHistory from "./pages/BookingHistory";
 import MyParkings from "./pages/MyParkings";
+import ParkingBookings from "./pages/ParkingBookings";
 
 function App() {
   const dispatch = useDispatch();
@@ -88,6 +89,7 @@ function App() {
           element={<BookingHistory curuser={user}></BookingHistory>}
         />
         <Route path="/myparkings" element={<MyParkings/>} />
+        <Route path="/bookings/:id" element= {<ParkingBookings/>}/>
         <Route path="*" element={<Home />} />
       </Routes>
     );

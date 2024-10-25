@@ -1,5 +1,6 @@
 const Parking = require("../models/Parking.js");
 const User = require("../models/User.js");
+const Booking = require("../models/Booking.js");
 
 exports.getAllParking = async (req, res) => {
   try {
@@ -15,6 +16,9 @@ exports.getAllParking = async (req, res) => {
     });
   }
 };
+
+
+
 
 
 exports.getUserParkings = async (req, res) => {
