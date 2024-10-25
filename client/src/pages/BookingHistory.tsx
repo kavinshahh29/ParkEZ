@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 const BookingHistory = ({ curuser } : any) => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+
 
   useEffect(() => {
     if (curuser && curuser.uid) {
@@ -37,7 +37,7 @@ const BookingHistory = ({ curuser } : any) => {
   }, [curuser]);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+ 
 
   return (
     <div className="container mx-auto mt-10">

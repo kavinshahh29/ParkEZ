@@ -15,7 +15,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import SearchForm from "./SearchForm";
 import toast from "react-hot-toast";
-import Home from "../../pages/Home";
+// import Home from "../../pages/Home";
 import { useNavigate } from "react-router-dom";
 // import CustomMarker from "./CustomMarker";
 
