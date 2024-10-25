@@ -48,7 +48,7 @@ const BookingHistory = ({ curuser } : any) => {
             <th className="py-2 px-4 border-b">Parking Location</th>
             <th className="py-2 px-4 border-b">Arrival Time</th>
             <th className="py-2 px-4 border-b">Exit Time</th>
-            <th className="py-2 px-4 border-b">Status</th>
+            {/* <th className="py-2 px-4 border-b">Status</th> */}
             <th className="py-2 px-4 border-b">Vehicle Number</th>
           </tr>
         </thead>
@@ -66,13 +66,13 @@ const BookingHistory = ({ curuser } : any) => {
               </td>
               {/* <td className="py-2 px-4 border-b">{booking.status}</td> */}
 
-              {booking.status == "Requested" ? (
+              {/* {booking.status == "Requested" ? (
                 <td className="py-2 px-4 border-b text-red-500">Pending</td>
               ) : (
                 <td className="py-2 px-4 border-b text-greed-500">
                   {booking.status}
                 </td>
-              )}
+              )} */}
               {/* <td className="py-2 px-4 border-b">{booking.payment_status}</td> */}
               <td className="py-2 px-4 border-b">
                 {booking.vehicle_details?.vehicle_number}
