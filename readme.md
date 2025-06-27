@@ -17,7 +17,7 @@ ParkEz addresses the common challenge of finding available parking spaces in urb
 - **Authentication**: Firebase
 - **Map Integration**: Mapbox API
 - **Version Control**: Git
-- **Deployment**: Vercel, Render 
+- **Deployment**: Vercel
 
 ## Screenshots
 
